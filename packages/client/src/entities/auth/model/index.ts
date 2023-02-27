@@ -1,0 +1,1 @@
+export * as AuthModel from './authSlice'
