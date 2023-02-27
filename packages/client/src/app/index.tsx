@@ -1,10 +1,18 @@
 import React from 'react';
+import { Route, Routes } from 'react-router-dom'
+import { routes } from '@/pages'
 import { withHocs } from './hocs'
-import Routing from '../pages';
+import { Menu } from '@/features'
 
 const App = () => (
   <div className="App">
-    <Routing />
+
+    <Menu routes={routes}/>
+
+    <Routes>
+      {routes.map(route => <Route path={route.path} element={route.component} />)}
+    </Routes>
+
   </div>
 )
 
