@@ -1,24 +1,38 @@
-import React, { FC } from "react";
-import { Routes, Route } from 'react-router-dom';
+import React from "react";
+import { IRoute } from '@/shared/types/routes-type'
 
-type OwnProps = {
-  children: React.ReactNode;
-}
-
-const Page: FC<OwnProps> = ({ children }) => (
-  <div>
-    {children}
-  </div>
-)
-
-const Routing = () => (
-  <Routes>
-    <Route path="/" element={<Page>Root Page</Page>} />
-    <Route path="/auth" element={<Page>Auth Page</Page>} />
-    <Route path="/game" element={<Page>Game Page</Page>} />
-    <Route path="/leaderboard" element={<Page>LeaderBoard Page</Page>} />
-    <Route path="*" element={<Page>Not Found</Page>} />
-  </Routes> 
-)
-
-export default Routing
+export const routes: IRoute[] = [
+  {
+    name: "Корень",
+    path: "/",
+    component: <div>Root Page</div>
+  },
+  {
+    name: "Авторизоваться",
+    path: "/auth",
+    component: <div>Auth Page</div>
+  },
+  {
+    name: "Игра",
+    path: "/game",
+    component: <div>Game Page</div>,
+    showInMenu: true,
+  },
+  {
+    name: "Таблица рекордов",
+    path: "/leaderboard",
+    component: <div>LeaderBoard Page</div>,
+    showInMenu: true,
+  },
+  {
+    name: "Форум",
+    path: "/forum",
+    component: <div>Forum Page</div>,
+    showInMenu: true,
+  },
+  {
+    name: "Ошибка",
+    path: "*",
+    component: <div>Not Found</div>
+  }
+]
