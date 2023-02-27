@@ -2,7 +2,7 @@ import React from 'react';
 import { Route, Routes } from 'react-router-dom'
 import { routes } from '@/pages'
 import { withHocs } from './hocs'
-import { Menu } from '@/features'
+import { Menu } from '@/shared/ui'
 
 const App = () => (
   <div className="App">
