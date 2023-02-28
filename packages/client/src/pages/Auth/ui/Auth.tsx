@@ -4,9 +4,9 @@ import useStyles from './styles'
 import { Form } from 'react-final-form'
 import { Button, Typography } from '@mui/material'
 import { Field } from 'react-final-form'
-import { TextFieldForm } from '@/app/hocs/form/hoc'
 import { AppLink } from '@/shared/ui/AppLink/AppLink'
 import { RoutePath } from '@/shared/config/routeConfig/routeConfig'
+import { TextFieldForm } from '@/shared/hocs/formHocs'
 
 const Auth: FC = () => {
   const styles = useStyles()

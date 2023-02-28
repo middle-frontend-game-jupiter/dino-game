@@ -4,10 +4,10 @@ import useStyles from './styles'
 import { Form } from 'react-final-form'
 import { Button, Typography } from '@mui/material'
 import { Field } from 'react-final-form'
-import { TextFieldForm } from '@/app/hocs/form/hoc'
 import { SignupForm } from '@/shared/types/signupForm'
 import { RoutePath } from '@/shared/config/routeConfig/routeConfig'
 import { AppLink } from '@/shared/ui/AppLink/AppLink'
+import { TextFieldForm } from '@/shared/hocs/formHocs'
 
 const Signup: FC = () => {
   const styles = useStyles()

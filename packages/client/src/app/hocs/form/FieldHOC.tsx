@@ -33,7 +33,7 @@ function FieldHOC<T>(Field: ComponentType<IFieldHOCProps<T>>): ComponentType {
     } = props as IFieldHOCProps<T> & WrappedFieldProps;
 
     const handleChange = useCallback(
-      (...args: any[]) => {
+      (...args: unknown[]) => {
         input.onChange(...args);
         if (onChange) {
           onChange(...args);
