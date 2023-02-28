@@ -2,10 +2,12 @@ import { RouteProps } from 'react-router-dom';
 import React from 'react'
 import { NotFoundPage } from '@/pages/NotFound'
 import { AuthPage } from '@/pages/Auth'
+import { SignupPage } from '@/pages/Signup'
 
 export enum APP_ROUTES {
     MAIN = 'main',
     AUTH = 'auth',
+    SIGNUP = 'signup',
     GAME = 'game',
     LEADERBOARD = 'leaderboard',
     FORUM = 'forum',
@@ -14,10 +16,11 @@ export enum APP_ROUTES {
 
 export const RoutePath: Record<APP_ROUTES, string> = {
     [APP_ROUTES.MAIN]: '/',
-    [APP_ROUTES.AUTH]: 'auth',
-    [APP_ROUTES.GAME]: 'game',
-    [APP_ROUTES.LEADERBOARD]: 'leaderboard',
-    [APP_ROUTES.FORUM]: 'forum',
+    [APP_ROUTES.AUTH]: '/auth',
+    [APP_ROUTES.SIGNUP]: '/signup',
+    [APP_ROUTES.GAME]: '/game',
+    [APP_ROUTES.LEADERBOARD]: '/leaderboard',
+    [APP_ROUTES.FORUM]: '/forum',
     [APP_ROUTES.NOT_FOUND]: '*',
 };
 
@@ -29,6 +32,10 @@ export const routeConfig: Record<APP_ROUTES, RouteProps> = {
     [APP_ROUTES.AUTH]: {
         path: RoutePath.auth,
         element: <AuthPage/>,
+    },
+    [APP_ROUTES.SIGNUP]: {
+        path: RoutePath.signup,
+        element: <SignupPage/>,
     },
     [APP_ROUTES.GAME]: {
         path: RoutePath.game,

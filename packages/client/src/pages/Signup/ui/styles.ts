@@ -4,6 +4,9 @@ export default (): Record<string, SxProps<Theme>> => ({
   root: {
     justifyContent: 'center',
     alignItems: 'center',
-    height: '100vh'
+    flexDirection: 'column',
+    rowGap: 2,
+    height: '100vh',
+    flexWrap: "nowrap"
   }
 });
