@@ -1,4 +1,4 @@
-import React, { ComponentType, useCallback } from 'react';
+import React, { ComponentType, useCallback } from 'react'
 
 interface WrappedFieldMetaProps {
   error?: any;
@@ -15,10 +15,13 @@ type IFieldHOCProps<T> = T & {
   helperText?: React.ReactNode;
   isErrorAlwaysVisible?: boolean;
   disableHelperText?: boolean;
+  onChange?: (...args: unknown[]) => void,
+  onFocus?: () => void,
+  onBlur?: () => void,
   [key: string]: any;
 };
 
-function FieldHOC<T>(Field: ComponentType<IFieldHOCProps<T>>): ComponentType {
+function withFieldHOC<T>(Field: ComponentType<IFieldHOCProps<T>>): ComponentType {
   return (props) => {
     const {
       input,
@@ -30,33 +33,33 @@ function FieldHOC<T>(Field: ComponentType<IFieldHOCProps<T>>): ComponentType {
       onFocus,
       onBlur,
       ...rest
-    } = props as IFieldHOCProps<T> & WrappedFieldProps;
+    } = props as IFieldHOCProps<T> & WrappedFieldProps
 
     const handleChange = useCallback(
       (...args: unknown[]) => {
-        input.onChange(...args);
+        input.onChange(...args)
         if (onChange) {
-          onChange(...args);
+          onChange(...args)
         }
       },
       [onChange, input.onChange]
-    );
+    )
 
     const handleFocus = useCallback(() => {
-      input.onFocus();
+      input.onFocus()
       if (onFocus) {
-        onFocus();
+        onFocus()
       }
-    }, [onFocus, input.onFocus]);
+    }, [onFocus, input.onFocus])
 
     const handleBlur = useCallback(() => {
-      input.onBlur();
+      input.onBlur()
       if (onBlur) {
-        onBlur();
+        onBlur()
       }
-    }, [onBlur, input.onBlur]);
+    }, [onBlur, input.onBlur])
 
-    const errorText = (touched || isErrorAlwaysVisible) && error ? error : helperText;
+    const errorText = (touched || isErrorAlwaysVisible) && error ? error : helperText
 
     return (
       <Field
@@ -70,9 +73,9 @@ function FieldHOC<T>(Field: ComponentType<IFieldHOCProps<T>>): ComponentType {
         warning={warning ? warning : undefined}
         helperText={disableHelperText ? null : warning ? warning : errorText}
       />
-    );
-  };
+    )
+  }
 }
 
-export type { IFieldHOCProps, WrappedFieldMetaProps, WrappedFieldProps };
-export default FieldHOC;
+export type { IFieldHOCProps, WrappedFieldMetaProps, WrappedFieldProps }
+export default withFieldHOC

@@ -1,8 +1,8 @@
 import { TextField, TextFieldProps } from '@mui/material'
 import { ComponentType } from 'react'
-import FieldHOC from '@/app/hocs/form/FieldHOC'
+import withFieldHOC from '@/app/hocs/form/WithFieldHOC'
 import { FieldRenderProps } from 'react-final-form'
 
-export const TextFieldForm = FieldHOC(TextField) as ComponentType<
+export const TextFieldForm = withFieldHOC(TextField) as ComponentType<
   FieldRenderProps<any, HTMLElement, any> & TextFieldProps
 >;

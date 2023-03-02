@@ -1,9 +1,9 @@
-import React from 'react'
+import React  from 'react'
 import { Route, Routes } from 'react-router-dom'
-import { withHocs } from './hocs'
 import './styles/index.css'
 import { routeConfig } from '@/shared/config/routeConfig/routeConfig'
 import Grid from '@mui/material/Grid'
+import { withHocs } from '@/app/hocs/withHocs'
 
 const App = () => {
 

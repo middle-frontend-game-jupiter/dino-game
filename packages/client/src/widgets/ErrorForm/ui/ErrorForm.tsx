@@ -4,11 +4,10 @@ import Grid from '@mui/material/Grid'
 import Typography from '@mui/material/Typography'
 import useStyles from './styles'
 
-export const PageError: FC = () => {
+export const ErrorForm: FC = () => {
   const styles = useStyles()
 
   const reloadPage = () => {
-    // eslint-disable-next-line no-restricted-globals
     location.reload()
   }
 

@@ -1,5 +1,5 @@
-import React, { ErrorInfo, ReactNode, Suspense } from 'react'
-import { PageError } from '@/widgets/PageError'
+import React, { ErrorInfo, ReactNode } from 'react'
+import { ErrorForm } from '@/widgets/ErrorForm'
 
 interface ErrorBoundaryProps {
   children: ReactNode
@@ -20,7 +20,6 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundarySta
   }
 
   componentDidCatch(error: Error, errorInfo: ErrorInfo) {
-    // eslint-disable-next-line no-console
     console.log(error, errorInfo)
   }
 
@@ -30,9 +29,7 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundarySta
 
     if (hasError) {
       return (
-        <Suspense fallback=''>
-          <PageError />
-        </Suspense>
+        <ErrorForm />
       )
     }
 
