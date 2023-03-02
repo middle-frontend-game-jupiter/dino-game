@@ -6,8 +6,16 @@ interface WrappedFieldMetaProps {
   warning?: any;
 }
 
+type Input = {
+  onChange: (...args: unknown[]) => void,
+  onFocus: () => void,
+  onBlur: () => void,
+  checked: boolean
+  value: boolean
+}
+
 interface WrappedFieldProps {
-  input: Record<string, any>;
+  input: Input;
   meta: WrappedFieldMetaProps;
 }
 
@@ -18,7 +26,6 @@ type IFieldHOCProps<T> = T & {
   onChange?: (...args: unknown[]) => void,
   onFocus?: () => void,
   onBlur?: () => void,
-  [key: string]: any;
 };
 
 function withFieldHOC<T>(Field: ComponentType<IFieldHOCProps<T>>): ComponentType {

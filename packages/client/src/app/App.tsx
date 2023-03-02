@@ -2,7 +2,7 @@ import React  from 'react'
 import { Route, Routes } from 'react-router-dom'
 import './styles/index.css'
 import { routeConfig } from '@/shared/config/routeConfig/routeConfig'
-import { withHocs } from '@/app/hocs/withHocs'
+import { withRootHocs } from '@/app/hocs/withRootHocs'
 import  Box  from '@mui/material/Box'
 
 const App = () => {
@@ -24,5 +24,5 @@ const App = () => {
   )
 }
 
-export default withHocs(App)
+export default withRootHocs(App)
 
