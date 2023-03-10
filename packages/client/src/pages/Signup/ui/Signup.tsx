@@ -1,20 +1,24 @@
-import React, { FC } from 'react'
+import React, { FC, useCallback } from 'react'
 import Grid from '@mui/material/Grid'
 import useStyles from './styles'
 import { Form } from 'react-final-form'
 import { Button, Typography } from '@mui/material'
 import { Field } from 'react-final-form'
-import { SignupForm } from '@/shared/types/signupForm'
+import { SignupForm } from '@/shared/types/SignupForm'
 import { RoutePath } from '@/shared/config/routeConfig/routeConfig'
 import { AppLink } from '@/shared/ui/AppLink/AppLink'
 import { TextFieldForm } from '@/shared/hocs/formHocs'
+import { useSignUpMutation } from '@/services/auth'
+import { LoadingButton } from '@mui/lab'
 
 const Signup: FC = () => {
-  const styles = useStyles()
+  const styles = useStyles();
 
-  const onSubmit = async (form: SignupForm) => {
-    console.log('form', form)
-  }
+  const [signupQuery, { isLoading }] = useSignUpMutation();
+
+  const onSubmit = useCallback(
+    (formData: SignupForm) => signupQuery(formData), 
+  [])
 
   return (
     <Form
@@ -60,9 +64,14 @@ const Signup: FC = () => {
                 size='medium'
                 label='Phone'
               />
-              <Button variant='contained' disabled={submitting} type='submit'>
+              <LoadingButton 
+                variant='contained' 
+                disabled={submitting} 
+                loading={isLoading}
+                type='submit'
+              >
                 sign up
-              </Button>
+              </LoadingButton>
 
               <Grid container width='auto' alignItems='center' gap={1}>
                 <Typography variant='body2'>Already have an account?</Typography>

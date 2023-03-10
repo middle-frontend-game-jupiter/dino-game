@@ -3,7 +3,10 @@ import React from 'react'
 import { NotFoundPage } from '@/pages/NotFound'
 import { AuthPage } from '@/pages/Auth'
 import { SignupPage } from '@/pages/Signup'
+import { GamePreview } from '@/pages/GamePreview';
+import { Viewer } from '@/entities/auth';
 
+// это должно лежать на уровне app/pages
 export enum APP_ROUTES {
     MAIN = 'main',
     AUTH = 'auth',
@@ -27,8 +30,9 @@ export const RoutePath: Record<APP_ROUTES, string> = {
 export const routeConfig: Record<APP_ROUTES, RouteProps> = {
     [APP_ROUTES.MAIN]: {
         path: RoutePath.main,
-        element: <div>Root Page</div>,
+        element: <Viewer><GamePreview /></Viewer>,
     },
+
     [APP_ROUTES.AUTH]: {
         path: RoutePath.auth,
         element: <AuthPage/>,
@@ -39,15 +43,15 @@ export const routeConfig: Record<APP_ROUTES, RouteProps> = {
     },
     [APP_ROUTES.GAME]: {
         path: RoutePath.game,
-        element: <div>Game Page</div>,
+        element: <Viewer><div>Game Page</div></Viewer>,
     },
     [APP_ROUTES.LEADERBOARD]: {
         path: RoutePath.leaderboard,
-        element: <div>LeaderBoard Page</div>,
+        element: <Viewer><div>LeaderBoard Page</div></Viewer>,
     },
     [APP_ROUTES.FORUM]: {
         path: RoutePath.forum,
-        element: <div>Forum Page</div>,
+        element: <Viewer><div>Forum Page</div></Viewer>,
     },
     [APP_ROUTES.NOT_FOUND]: {
         path: RoutePath.not_found,
