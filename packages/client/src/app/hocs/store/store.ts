@@ -1,14 +1,14 @@
 import { configureStore, ConfigureStoreOptions } from "@reduxjs/toolkit"
-import { AuthModel } from "@/entities/auth"
+import { authModel } from "@/entities/auth"
 import { api } from "@/services/api"
 
 export const createStore = (
-  options?: ConfigureStoreOptions['preloadedState'] | undefined
+  options?: ConfigureStoreOptions['preloadedState']
 ) => (
   configureStore({
     reducer: {
       [api.reducerPath]: api.reducer,
-      auth: AuthModel.reducer,
+      auth: authModel.reducer,
     },
     middleware: (getDefaultMiddleware) =>
       getDefaultMiddleware().concat(api.middleware),

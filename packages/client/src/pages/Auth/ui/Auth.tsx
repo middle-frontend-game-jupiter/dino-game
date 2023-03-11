@@ -5,19 +5,18 @@ import { Form } from 'react-final-form'
 import { Alert, AlertTitle, Typography } from '@mui/material'
 import { Field } from 'react-final-form'
 import { AppLink } from '@/shared/ui/AppLink/AppLink'
-import { RoutePath } from '@/shared/config/routeConfig/routeConfig'
+import { RoutePath } from '@/shared/config'
 import { TextFieldForm } from '@/shared/hocs/formHocs'
 import { useSignInMutation } from '@/services/auth'
 import { LoadingButton } from '@mui/lab'
 import { UserSignInDto } from '@/shared/types/User'
 import { useAppSelector } from '@/app/hooks/redux'
-import { AuthModel } from '@/entities/auth'
-
+import { authModel } from '@/entities/auth'
 
 const Auth: FC = () => {
   const styles = useStyles();
-  const errorReason = useAppSelector(AuthModel.authErrorReasonSelector);
-  const [authQuery, { isLoading, isError }] = useSignInMutation();
+  const errorReason = useAppSelector(authModel.selectors.authErrorReasonSelector)
+  const [authQuery, { isLoading, isError }] = useSignInMutation()
 
   const onSubmit = useCallback(
     (form: UserSignInDto) => authQuery(form), 

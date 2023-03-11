@@ -1,9 +1,9 @@
 import { me, signIn } from '@/services/auth';
-import { createSelector, createSlice } from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit'
 import { NonAutorizedResponse } from '@/shared/types/Errors';
 import { ApiStatuses } from '@/shared/types/ApiStatuses';
-import { RootState } from '@/app/hocs/store/store';
 import { UserEntity } from '@/shared/types/User';
+import { UserMapper } from '@/mappers/User';
 
 interface AuthSlice {
   user: null | UserEntity;
@@ -22,7 +22,7 @@ const authSlice = createSlice({
   extraReducers(builder) {
     builder
       .addMatcher(me.matchFulfilled, (state, { payload }) => {
-        state.user = payload;
+        state.user = UserMapper.toView(payload);
       })
       .addMatcher(signIn.matchRejected, (state, { payload }) => {
         const { reason } = payload?.data as NonAutorizedResponse;
@@ -36,15 +36,5 @@ const authSlice = createSlice({
       })
   }
 })
-
-export const authErrorReasonSelector = createSelector(
-  (state: RootState) => state,
-  ({ auth }) => auth.error && auth.error?.reason 
-)
-
-export const isAuthUserSelector = createSelector(
-  (state: RootState) => state,
-  ({ auth }) => Boolean(auth.user) 
-)
 
 export const { reducer } = authSlice

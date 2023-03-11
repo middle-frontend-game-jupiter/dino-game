@@ -1,7 +1,7 @@
 import React, { ComponentType, useCallback } from 'react'
 
 interface WrappedFieldMetaProps {
-  error?: any;
+  error?: unknown;
   touched: boolean;
   warning?: any;
 }

@@ -1,3 +1,2 @@
-export * from './model';
-export { Viewer } from './ui/Viewer'
-
+export * as authModel from './model'
+export * from './ui'

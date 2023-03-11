@@ -1,4 +1,4 @@
-import { UserSignInDto, AuthResponse } from '@/shared/types/User'
+import { UserSignInDto, AuthResponse, UserServerEntity } from '@/shared/types/User'
 import { api } from './api';
 
 export const authApi = api
@@ -23,7 +23,7 @@ export const authApi = api
         })
       }),
 
-      me: builder.mutation({
+      me: builder.mutation<UserServerEntity, unknown>({
         query: () => ({
           url: "auth/user",
           method: "GET",
