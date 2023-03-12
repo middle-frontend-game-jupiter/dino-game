@@ -1,1 +1,2 @@
-export * from './model'
+export * as authModel from './model'
+export * from './ui'
