@@ -1,15 +1,16 @@
 import React  from 'react'
+import Box from '@mui/material/Box'
+
 import { Route, Routes } from 'react-router-dom'
-import './styles/index.css'
-import { routeConfig } from '@/shared/config/routeConfig/routeConfig'
 import { withRootHocs } from '@/app/hocs/withRootHocs'
-import  Box  from '@mui/material/Box'
+import { routeConfig } from './routes';
 
-const App = () => {
+import './styles/index.css'
 
-  return (
-    <Routes>
-      {Object.values(routeConfig).map(({ path, element }) => (
+const App = () => (
+  <Routes>
+    {
+      Object.values(routeConfig).map(({ path, element }) => (
         <Route
           key={path}
           path={path}
@@ -19,10 +20,11 @@ const App = () => {
             </Box>
           )}
         />
-      ))}
-    </Routes>
-  )
-}
+      ))
+    }
+  </Routes>
+)
+
 
 export default withRootHocs(App)
 
