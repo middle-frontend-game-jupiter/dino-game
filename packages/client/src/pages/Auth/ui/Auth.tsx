@@ -12,15 +12,21 @@ import { LoadingButton } from '@mui/lab'
 import { UserSignInDto } from '@/shared/types/User'
 import { useAppSelector } from '@/app/hooks/redux'
 import { authModel } from '@/entities/auth'
+import { Navigate } from 'react-router';
 
 const Auth: FC = () => {
   const styles = useStyles();
   const errorReason = useAppSelector(authModel.selectors.authErrorReasonSelector)
+  const isAuth = useAppSelector(authModel.selectors.isAuthUserSelector);
   const [authQuery, { isLoading, isError }] = useSignInMutation()
 
   const onSubmit = useCallback(
-    (form: UserSignInDto) => authQuery(form), 
+    (form: UserSignInDto) => authQuery(form),
   []);
+
+  if (isAuth) {
+    return <Navigate to="/" replace={true} />;
+  }
 
   return (
     <Form
@@ -48,10 +54,10 @@ const Auth: FC = () => {
                 size='medium'
                 label='Password'
               />
-              <LoadingButton 
-                variant='contained' 
+              <LoadingButton
+                variant='contained'
                 disabled={isLoading}
-                loading={isLoading} 
+                loading={isLoading}
                 type='submit'
               >
                 Log in

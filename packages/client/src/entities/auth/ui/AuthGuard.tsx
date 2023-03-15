@@ -2,8 +2,8 @@ import React, { useEffect } from 'react';
 import { useMeMutation } from '@/services/auth';
 import { CircularProgress } from '@mui/material';
 import { useAppSelector } from '@/app/hooks/redux';
+import { Navigate } from 'react-router';
 import { isAuthUserSelector } from '../model/selectors';
-import { AuthPage } from '@/pages/Auth'
 
 interface OwnProps {
   children: JSX.Element;
@@ -23,7 +23,7 @@ export const AuthGuard = ({ children }: OwnProps): JSX.Element | React.ReactElem
   }
 
   if(isError) {
-    return <AuthPage/>
+    return <Navigate to='/auth' replace={true} />
   }
 
   return children
