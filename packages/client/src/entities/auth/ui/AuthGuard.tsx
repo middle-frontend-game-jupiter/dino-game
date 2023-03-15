@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { useMeMutation } from '@/services/auth';
-import { Navigate } from 'react-router';
 import { CircularProgress } from '@mui/material';
 import { useAppSelector } from '@/app/hooks/redux';
 import { isAuthUserSelector } from '../model/selectors';
