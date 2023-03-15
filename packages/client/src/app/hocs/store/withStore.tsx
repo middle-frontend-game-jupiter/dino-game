@@ -1,11 +1,7 @@
-import React from "react"
-import { store } from "./store"
-import { Provider } from "react-redux"
+import React from 'react'
+import { ErrorBoundary } from '@/app/providers/ErrorBoundary'
 
-const withStore = (component: () => React.ReactNode | JSX.Element) => () => (
-  <Provider store={store}>
-    {component()}
-  </Provider>
-);
-  
+const withStore = (component: () => React.ReactNode | JSX.Element) => () =>
+  <ErrorBoundary>{component()}</ErrorBoundary>
+
 export default withStore

@@ -9,10 +9,8 @@ const NotFound: FC = () => {
   const styles = useStyles()
 
   return (
-    <Grid container flexDirection='column' sx={styles.root}>
-      <Typography variant='h4'>
-        Not Found
-      </Typography>
+    <Grid container flexDirection="column" sx={styles.root}>
+      <Typography variant="h4">Not Found</Typography>
       <AppLink to={RoutePath.main}>Back to root page </AppLink>
     </Grid>
   )

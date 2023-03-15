@@ -1,3 +1,3 @@
-import { ErrorForm } from './ui/ErrorForm';
+import { ErrorForm } from './ui/ErrorForm'
 
-export { ErrorForm };
+export { ErrorForm }

@@ -1,35 +1,37 @@
 import React, { ComponentType, useCallback } from 'react'
 
 interface WrappedFieldMetaProps {
-  error?: unknown;
-  touched: boolean;
-  warning?: any;
+  error?: unknown
+  touched: boolean
+  warning?: any
 }
 
 type Input = {
-  onChange: (...args: unknown[]) => void,
-  onFocus: () => void,
-  onBlur: () => void,
+  onChange: (...args: unknown[]) => void
+  onFocus: () => void
+  onBlur: () => void
   checked: boolean
   value: boolean
 }
 
 interface WrappedFieldProps {
-  input: Input;
-  meta: WrappedFieldMetaProps;
+  input: Input
+  meta: WrappedFieldMetaProps
 }
 
 type IFieldHOCProps<T> = T & {
-  helperText?: React.ReactNode;
-  isErrorAlwaysVisible?: boolean;
-  disableHelperText?: boolean;
-  onChange?: (...args: unknown[]) => void,
-  onFocus?: () => void,
-  onBlur?: () => void,
-};
+  helperText?: React.ReactNode
+  isErrorAlwaysVisible?: boolean
+  disableHelperText?: boolean
+  onChange?: (...args: unknown[]) => void
+  onFocus?: () => void
+  onBlur?: () => void
+}
 
-function withFieldHOC<T>(Field: ComponentType<IFieldHOCProps<T>>): ComponentType {
-  return (props) => {
+function withFieldHOC<T>(
+  Field: ComponentType<IFieldHOCProps<T>>
+): ComponentType {
+  return props => {
     const {
       input,
       meta: { touched, error, warning },
@@ -66,7 +68,8 @@ function withFieldHOC<T>(Field: ComponentType<IFieldHOCProps<T>>): ComponentType
       }
     }, [onBlur, input.onBlur])
 
-    const errorText = (touched || isErrorAlwaysVisible) && error ? error : helperText
+    const errorText =
+      (touched || isErrorAlwaysVisible) && error ? error : helperText
 
     return (
       <Field
