@@ -18,8 +18,6 @@ const initialValues = {
   phone: `+1 996 120 345 11`,
 }
 
-const isLoading = false
-
 type TKey = keyof typeof initialValues
 
 const Profile: FC = () => {
