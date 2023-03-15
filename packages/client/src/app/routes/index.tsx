@@ -1,5 +1,4 @@
 import React from 'react'
-
 import { RouteProps } from 'react-router-dom'
 import { NotFoundPage } from '@/pages/NotFound'
 import { AuthPage } from '@/pages/Auth'
