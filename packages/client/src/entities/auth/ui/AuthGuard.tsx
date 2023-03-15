@@ -4,6 +4,7 @@ import { Navigate } from 'react-router';
 import { CircularProgress } from '@mui/material';
 import { useAppSelector } from '@/app/hooks/redux';
 import { isAuthUserSelector } from '../model/selectors';
+import { AuthPage } from '@/pages/Auth'
 
 interface OwnProps {
   children: JSX.Element;
@@ -15,9 +16,7 @@ export const AuthGuard = ({ children }: OwnProps): JSX.Element | React.ReactElem
   const isAuth = useAppSelector(isAuthUserSelector)
 
   useEffect(() => {
-    if(!isAuth) {
-      userQuery({})
-    }
+    userQuery({})
   }, [isAuth])
 
   if(isLoading) {
@@ -25,7 +24,7 @@ export const AuthGuard = ({ children }: OwnProps): JSX.Element | React.ReactElem
   }
 
   if(isError) {
-    return <Navigate to='/auth' replace={true} />
+    return <AuthPage/>
   }
 
   return children

@@ -8,11 +8,13 @@ import { UserMapper } from '@/mappers/User';
 interface AuthSlice {
   user: null | UserEntity;
   error: null | NonAutorizedResponse;
+  auth: boolean
 }
 
 const initialState: AuthSlice = {
   user: null,
   error: null,
+  auth: false
 };
 
 const authSlice = createSlice({
@@ -28,10 +30,13 @@ const authSlice = createSlice({
         const { reason } = payload?.data as NonAutorizedResponse;
 
         if(payload?.status === ApiStatuses.UNAUTORIZED) {
+          state.auth = false
           state.error = {
             status: ApiStatuses.UNAUTORIZED,
             reason
           }
+        } else {
+          state.auth = true
         }
       })
   }
