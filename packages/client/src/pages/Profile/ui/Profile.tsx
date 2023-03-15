@@ -1,13 +1,15 @@
-import React, { FC } from 'react'
+import { FC } from 'react'
 import Grid from '@mui/material/Grid'
 import useStyles from './styles'
-import Box from '@mui/material/Box'
-import List from '@mui/material/List'
-import ListItem from '@mui/material/ListItem'
-import ListItemText from '@mui/material/ListItemText'
 import Typography from '@mui/material/Typography'
-
-import { ProfileForm } from '@/shared/types/profileForm'
+import Table from '@mui/material/Table'
+import TableBody from '@mui/material/TableBody'
+import TableCell from '@mui/material/TableCell'
+import TableContainer from '@mui/material/TableContainer'
+import TableRow from '@mui/material/TableRow'
+import Paper from '@mui/material/Paper'
+import { Button } from '@mui/material'
+import { RoutePath } from '@/shared/config'
 
 const initialValues = {
   first_name: `Константин`,
@@ -15,6 +17,10 @@ const initialValues = {
   email: `kk@gmail.ru`,
   phone: `+1 996 120 345 11`,
 }
+
+const isLoading = false
+
+type TKey = keyof typeof initialValues
 
 const Profile: FC = () => {
   const styles = useStyles()
@@ -24,17 +30,25 @@ const Profile: FC = () => {
       <Typography variant="h3" gutterBottom>
         Profile
       </Typography>
-      <Box sx={{ border: '1px solid grey' }}>
-        <List>
-          {Object.keys(initialValues).map(it => (
-            <ListItem>
-              <ListItemText>
-                {it}: {initialValues[it as keyof typeof initialValues]}
-              </ListItemText>
-            </ListItem>
-          ))}
-        </List>
-      </Box>
+      <TableContainer
+        component={Paper}
+        sx={{ maxWidth: 650, marginLeft: 'auto', marginRight: 'auto' }}>
+        <Table aria-label="Profile table">
+          <TableBody>
+            {Object.keys(initialValues).map(it => (
+              <TableRow
+                key={it}
+                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+                <TableCell>{it}</TableCell>
+                <TableCell align="right">{initialValues[it as TKey]}</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+      <Button variant="contained" href={RoutePath.profile_edit} type="submit">
+        Edit
+      </Button>
     </Grid>
   )
 }

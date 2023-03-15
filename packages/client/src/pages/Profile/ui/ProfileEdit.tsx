@@ -3,9 +3,10 @@ import Grid from '@mui/material/Grid'
 import useStyles from './styles'
 import { Form } from 'react-final-form'
 import { Button, Typography } from '@mui/material'
+import { LoadingButton } from '@mui/lab'
 import { Field } from 'react-final-form'
 import { AppLink } from '@/shared/ui/AppLink/AppLink'
-import { RoutePath } from '@/shared/config/routeConfig/routeConfig'
+import { RoutePath } from '@/shared/config'
 import { TextFieldForm } from '@/shared/hocs/formHocs'
 import { ProfileForm } from '@/shared/types/profileForm'
 
@@ -32,6 +33,9 @@ const ProfileEdit: FC = () => {
         return (
           <form onSubmit={handleSubmit}>
             <Grid container sx={styles.root}>
+              <Typography variant="h3" gutterBottom>
+                Profile
+              </Typography>
               <Field
                 component={TextFieldForm}
                 name="first_name"
@@ -56,9 +60,13 @@ const ProfileEdit: FC = () => {
                 size="medium"
                 label="Phone"
               />
-              <Button variant="contained" disabled={submitting} type="submit">
+              <LoadingButton
+                variant="contained"
+                disabled={submitting}
+                type="submit">
                 Save
-              </Button>
+              </LoadingButton>
+              <Button href={RoutePath.profile}>Cancel</Button>
             </Grid>
           </form>
         )
