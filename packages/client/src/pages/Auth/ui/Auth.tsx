@@ -9,18 +9,18 @@ import { RoutePath } from '@/shared/config'
 import { TextFieldForm } from '@/shared/hocs/formHocs'
 import { useSignInMutation } from '@/services/auth'
 import { LoadingButton } from '@mui/lab'
-import { UserSignInDto } from '@/shared/types/User'
+import { UserSignIn } from '@/shared/types/User'
 import { useAppSelector } from '@/app/hooks/redux'
 import { authModel } from '@/entities/auth'
 
 const Auth: FC = () => {
-  const styles = useStyles();
-  const errorReason = useAppSelector(authModel.selectors.authErrorReasonSelector)
+  const styles = useStyles()
+  const errorReason = useAppSelector(
+    authModel.selectors.authErrorReasonSelector
+  )
   const [authQuery, { isLoading, isError }] = useSignInMutation()
 
-  const onSubmit = useCallback(
-    (form: UserSignInDto) => authQuery(form), 
-  []);
+  const onSubmit = useCallback((form: UserSignIn) => authQuery(form), [])
 
   return (
     <Form
@@ -29,7 +29,7 @@ const Auth: FC = () => {
       render={({ handleSubmit, submitting }) => {
         return (
           <form onSubmit={handleSubmit}>
-            {(isError && errorReason) && (
+            {isError && errorReason && (
               <Alert severity="error">
                 <AlertTitle>{errorReason}</AlertTitle>
               </Alert>
@@ -37,28 +37,27 @@ const Auth: FC = () => {
             <Grid container sx={styles.root}>
               <Field
                 component={TextFieldForm}
-                name='login'
-                size='medium'
-                label='Login'
+                name="login"
+                size="medium"
+                label="Login"
               />
               <Field
                 component={TextFieldForm}
                 disabled={submitting}
-                name='password'
-                size='medium'
-                label='Password'
+                name="password"
+                size="medium"
+                label="Password"
               />
-              <LoadingButton 
-                variant='contained' 
+              <LoadingButton
+                variant="contained"
                 disabled={isLoading}
-                loading={isLoading} 
-                type='submit'
-              >
+                loading={isLoading}
+                type="submit">
                 Log in
               </LoadingButton>
-              <Grid container width='auto' alignItems='center' gap={1}>
-                <Typography variant='body2'>No account yet?</Typography>
-                <AppLink to={RoutePath.signup}>Sign up</AppLink>
+              <Grid container width="auto" alignItems="center" gap={1}>
+                <Typography variant="body2">No account yet?</Typography>
+                <AppLink to={RoutePath.signup}>Settings</AppLink>
               </Grid>
             </Grid>
           </form>

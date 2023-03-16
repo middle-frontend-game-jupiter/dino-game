@@ -5,6 +5,6 @@ export default (): Record<string, SxProps<Theme>> => ({
     flexDirection: 'column',
     padding: '8px 16px',
     gap: 1,
-    height: "100vh"
-  }
-});
+    height: '100vh',
+  },
+})

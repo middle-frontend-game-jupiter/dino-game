@@ -12,13 +12,14 @@ import { useSignUpMutation } from '@/services/auth'
 import { LoadingButton } from '@mui/lab'
 
 const Signup: FC = () => {
-  const styles = useStyles();
+  const styles = useStyles()
 
-  const [signupQuery, { isLoading }] = useSignUpMutation();
+  const [signupQuery, { isLoading }] = useSignUpMutation()
 
   const onSubmit = useCallback(
-    (formData: SignupForm) => signupQuery(formData), 
-  [])
+    (formData: SignupForm) => signupQuery(formData),
+    []
+  )
 
   return (
     <Form
@@ -30,51 +31,52 @@ const Signup: FC = () => {
             <Grid container sx={styles.root}>
               <Field
                 component={TextFieldForm}
-                name='login'
-                size='medium'
-                label='Login'
+                name="login"
+                size="medium"
+                label="Login"
               />
               <Field
                 component={TextFieldForm}
-                name='password'
-                size='medium'
-                label='Password'
+                name="password"
+                size="medium"
+                label="Password"
               />
               <Field
                 component={TextFieldForm}
-                name='first_name'
-                size='medium'
-                label='First name'
+                name="first_name"
+                size="medium"
+                label="First name"
               />
               <Field
                 component={TextFieldForm}
-                name='second_name'
-                size='medium'
-                label='Second name'
+                name="second_name"
+                size="medium"
+                label="Second name"
               />
               <Field
                 component={TextFieldForm}
-                name='email'
-                size='medium'
-                label='Email'
+                name="email"
+                size="medium"
+                label="Email"
               />
               <Field
                 component={TextFieldForm}
-                name='phone'
-                size='medium'
-                label='Phone'
+                name="phone"
+                size="medium"
+                label="Phone"
               />
-              <LoadingButton 
-                variant='contained' 
-                disabled={submitting} 
+              <LoadingButton
+                variant="contained"
+                disabled={submitting}
                 loading={isLoading}
-                type='submit'
-              >
+                type="submit">
                 sign up
               </LoadingButton>
 
-              <Grid container width='auto' alignItems='center' gap={1}>
-                <Typography variant='body2'>Already have an account?</Typography>
+              <Grid container width="auto" alignItems="center" gap={1}>
+                <Typography variant="body2">
+                  Already have an account?
+                </Typography>
                 <AppLink to={RoutePath.auth}>Log in</AppLink>
               </Grid>
             </Grid>
@@ -82,7 +84,6 @@ const Signup: FC = () => {
         )
       }}
     />
-
   )
 }
 

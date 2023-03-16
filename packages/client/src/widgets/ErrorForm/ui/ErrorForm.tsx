@@ -12,11 +12,13 @@ export const ErrorForm: FC = () => {
   }
 
   return (
-    <Grid container justifyContent='center' alignItems='center' sx={styles.root}>
-      <Typography variant='h5'>
-        Something went wrong
-      </Typography>
-      <Button variant='contained' onClick={reloadPage} size='large'>
+    <Grid
+      container
+      justifyContent="center"
+      alignItems="center"
+      sx={styles.root}>
+      <Typography variant="h5">Something went wrong</Typography>
+      <Button variant="contained" onClick={reloadPage} size="large">
         update page
       </Button>
     </Grid>

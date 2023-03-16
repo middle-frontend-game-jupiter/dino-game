@@ -1,7 +1,6 @@
-
 export default () => ({
   root: {
-    color: "black",
-    fontWeight: "bold"
-  }
-});
+    color: 'black',
+    fontWeight: 'bold',
+  },
+})

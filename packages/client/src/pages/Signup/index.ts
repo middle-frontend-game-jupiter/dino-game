@@ -1,3 +1,3 @@
-import Signup from './ui/Signup';
+import Signup from './ui/Signup'
 
-export { Signup as SignupPage };
+export { Signup as SignupPage }

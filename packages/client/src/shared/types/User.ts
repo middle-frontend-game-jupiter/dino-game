@@ -1,19 +1,30 @@
-export interface UserSignInDto {
-  firstName: string;
-  password: string;
-}
-  
-export interface UserEntity {
-  fistName: string;
-  // необходимо вытащить из сваггера сущность юзера
+export interface UserSignIn {
+  login: string
+  password: string
 }
 
-  
+export interface UserEntity {
+  id: number
+  firstName: string
+  secondName: string
+  displayName: string
+  login: string
+  email: string
+  phone: string
+  avatar: string
+}
+
 export interface UserServerEntity {
-  fist_name: string;
-  // необходимо вытащить из сваггера сущность юзера
+  id: number
+  first_name: string
+  second_name: string
+  login: string
+  email: string
+  password: string
+  phone: string
+  avatar: string
 }
 
 export interface AuthResponse {
-  id: number;
+  id: number
 }
