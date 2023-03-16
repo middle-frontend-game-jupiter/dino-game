@@ -5,7 +5,9 @@ export enum APP_ROUTES {
   GAME = 'game',
   LEADERBOARD = 'leaderboard',
   FORUM = 'forum',
-  NOT_FOUND = 'not_found'
+  PROFILE = 'profile',
+  NOT_FOUND = 'not_found',
+  SETTINGS = 'settings',
 }
 
 export const RoutePath: Record<APP_ROUTES, string> = {
@@ -15,5 +17,7 @@ export const RoutePath: Record<APP_ROUTES, string> = {
   [APP_ROUTES.GAME]: '/game',
   [APP_ROUTES.LEADERBOARD]: '/leaderboard',
   [APP_ROUTES.FORUM]: '/forum',
+  [APP_ROUTES.PROFILE]: '/profile',
   [APP_ROUTES.NOT_FOUND]: '*',
-};
+  [APP_ROUTES.SETTINGS]: '/settings',
+}

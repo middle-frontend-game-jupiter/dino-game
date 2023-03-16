@@ -1,3 +1,3 @@
 export enum ApiStatuses {
-  UNAUTORIZED = 401,
+  UN_AUTHORIZED = 401,
 }

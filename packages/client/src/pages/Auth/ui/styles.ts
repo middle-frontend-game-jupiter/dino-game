@@ -6,6 +6,6 @@ export default (): Record<string, SxProps<Theme>> => ({
     alignItems: 'center',
     flexDirection: 'column',
     rowGap: 2,
-    height: '100vh'
-  }
-});
+    height: '100vh',
+  },
+})

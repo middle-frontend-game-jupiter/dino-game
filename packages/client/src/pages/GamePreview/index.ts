@@ -1,3 +1,3 @@
-import GamePreview from './ui/GamePreview';
+import GamePreview from './ui/GamePreview'
 
-export { GamePreview as GamePreview };
+export { GamePreview as GamePreview }
