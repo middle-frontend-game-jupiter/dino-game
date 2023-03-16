@@ -15,15 +15,21 @@ import { UserSignIn } from '@/shared/types/User'
 import { useAppSelector } from '@/app/hooks/redux'
 import { authModel } from '@/entities/auth'
 import validate from './validate'
+import { Navigate } from 'react-router'
 
 const Auth: FC = () => {
   const styles = useStyles()
   const errorReason = useAppSelector(
     authModel.selectors.authErrorReasonSelector
   )
+  const isAuth = useAppSelector(authModel.selectors.isAuthUserSelector)
   const [authQuery, { isLoading, isError }] = useSignInMutation()
 
   const onSubmit = useCallback((form: UserSignIn) => authQuery(form), [])
+
+  if (isAuth) {
+    return <Navigate to="/" replace={true} />
+  }
 
   return (
     <Form
