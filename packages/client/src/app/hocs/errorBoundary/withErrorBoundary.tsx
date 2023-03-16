@@ -1,9 +1,8 @@
 import React from 'react'
-import { Provider } from 'react-redux'
-import { store } from '@/app/providers/Store/config/store'
+import { ErrorBoundary } from '@/app/providers/errorBoundary'
 
 const withErrorBoundary =
   (component: () => React.ReactNode | JSX.Element) => () =>
-    <Provider store={store}>{component()}</Provider>
+    <ErrorBoundary>{component()}</ErrorBoundary>
 
 export default withErrorBoundary
