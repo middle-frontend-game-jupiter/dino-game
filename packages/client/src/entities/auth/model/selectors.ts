@@ -9,7 +9,7 @@ export const authErrorReasonSelector = createSelector(
 
 export const isAuthUserSelector = createSelector(
   (state: RootState) => state,
-  ({ auth }) => Boolean(auth.user)
+  ({ auth }) => auth.auth
 )
 
 export const getUserSelector = createSelector(

@@ -8,7 +8,19 @@
     "preview": "vite preview",
     "lint": "eslint .",
     "format": "prettier --write .",
+    "lint-staged": "lint-staged",
     "test": "jest ./"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.+(js|jsx|json|yml|yaml|css|md|vue)": [
+      "npm run prettier",
+      "git add"
+    ]
   },
   "dependencies": {
     "@emotion/react": "11.10.6",
@@ -30,7 +42,9 @@
     "react-redux": "8.0.5",
     "react-router": "6.8.1",
     "react-router-dom": "6.8.1",
-    "styled-components": "5.3.6"
+    "styled-components": "5.3.6",
+    "husky": "8.0.3",
+    "lint-staged": "^13.2.0"
   },
   "devDependencies": {
     "@testing-library/react": "13.3.0",
