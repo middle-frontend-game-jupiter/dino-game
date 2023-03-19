@@ -16,6 +16,7 @@ import { useAppSelector } from '@/app/hooks/redux'
 import { authModel } from '@/entities/auth'
 import validate from './validate'
 import { Navigate } from 'react-router'
+import { YANDEX_OAUTH_GET_CODE_PATH } from '@/shared/config'
 
 const Auth: FC = () => {
   const styles = useStyles()
@@ -69,6 +70,12 @@ const Auth: FC = () => {
                 type="submit">
                 Log in
               </LoadingButton>
+              <Grid container width="auto" alignItems="center" gap={1}>
+                <Typography variant="body2">
+                  Use Yandex{' '}
+                  <AppLink to={YANDEX_OAUTH_GET_CODE_PATH}>OAuth</AppLink>
+                </Typography>
+              </Grid>
               <Grid container width="auto" alignItems="center" gap={1}>
                 <Typography variant="body2">No account yet?</Typography>
                 <AppLink to={RoutePath.signup}>Signup</AppLink>

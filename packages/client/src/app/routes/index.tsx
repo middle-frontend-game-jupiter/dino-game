@@ -7,6 +7,7 @@ import { GamePreview } from '@/pages/GamePreview'
 import { AuthGuard } from '@/entities/auth'
 import { APP_ROUTES, RoutePath } from '@/shared/config'
 import { ProfilePage } from '@/pages/Profile'
+import { YandexOauth } from '@/pages/YandexOauth'
 
 export const routeConfig: Record<APP_ROUTES, RouteProps> = {
   [APP_ROUTES.MAIN]: {
@@ -68,5 +69,10 @@ export const routeConfig: Record<APP_ROUTES, RouteProps> = {
         <div>settings</div>
       </AuthGuard>
     ),
+  },
+
+  [APP_ROUTES.YANDEX_OAUTH]: {
+    path: RoutePath.yandex_oauth,
+    element: <YandexOauth />,
   },
 }
