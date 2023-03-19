@@ -28,3 +28,12 @@ export interface UserServerEntity {
 export interface AuthResponse {
   id: number
 }
+
+export interface UserProfileAvatar {
+  avatar: string;
+}
+
+export interface UserPasswordUpdate {
+  oldPassword: string;
+  newPassword: string;
+}
