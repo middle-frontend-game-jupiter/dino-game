@@ -2,8 +2,8 @@ import { createSlice } from '@reduxjs/toolkit'
 import { updateAvatar, updatePassword } from '@/services/user'
 
 interface UserSlice {
-  avatar: null | string;
-  error: null | string;
+  avatar: null | string
+  error: null | string
 }
 
 const initialState: UserSlice = {
@@ -18,12 +18,12 @@ export const userSlice = createSlice({
   extraReducers(builder) {
     builder
       .addMatcher(updateAvatar.matchFulfilled, (state, { payload }) => {
-        state.avatar = payload.avatar;
+        state.avatar = payload.avatar
       })
-      .addMatcher(updatePassword.matchFulfilled, (state) => {
-        state.error = null;
+      .addMatcher(updatePassword.matchFulfilled, state => {
+        state.error = null
       })
   },
-});
+})
 
-export const { reducer } = userSlice;
+export const { reducer } = userSlice

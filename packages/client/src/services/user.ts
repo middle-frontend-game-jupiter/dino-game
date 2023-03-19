@@ -1,4 +1,4 @@
-import { UserProfileAvatar } from '@/shared/types/User';
+import { UserProfileAvatar } from '@/shared/types/User'
 import { api } from '@/services/api'
 
 export const userApi = api
@@ -23,10 +23,10 @@ export const userApi = api
         }),
       }),
     }),
-  });
+  })
 
-export const { useUpdateAvatarMutation, useUpdatePasswordMutation } = userApi;
+export const { useUpdateAvatarMutation, useUpdatePasswordMutation } = userApi
 
 export const {
   endpoints: { updateAvatar, updatePassword },
-} = userApi;
+} = userApi

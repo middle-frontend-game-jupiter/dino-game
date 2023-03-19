@@ -30,10 +30,10 @@ export interface AuthResponse {
 }
 
 export interface UserProfileAvatar {
-  avatar: string;
+  avatar: string
 }
 
 export interface UserPasswordUpdate {
-  oldPassword: string;
-  newPassword: string;
+  oldPassword: string
+  newPassword: string
 }
