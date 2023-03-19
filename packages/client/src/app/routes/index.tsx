@@ -7,6 +7,7 @@ import { GamePreview } from '@/pages/GamePreview'
 import { AuthGuard } from '@/entities/auth'
 import { APP_ROUTES, RoutePath } from '@/shared/config'
 import { ProfilePage } from '@/pages/Profile'
+import { Error500Page } from '@/pages/Error500'
 
 export const routeConfig: Record<APP_ROUTES, RouteProps> = {
   [APP_ROUTES.MAIN]: {
@@ -60,6 +61,10 @@ export const routeConfig: Record<APP_ROUTES, RouteProps> = {
   [APP_ROUTES.NOT_FOUND]: {
     path: RoutePath.not_found,
     element: <NotFoundPage />,
+  },
+  [APP_ROUTES.ERROR500]: {
+    path: RoutePath.error500,
+    element: <Error500Page />,
   },
   [APP_ROUTES.SETTINGS]: {
     path: RoutePath.settings,
