@@ -37,3 +37,8 @@ export interface UserPasswordUpdate {
   oldPassword: string
   newPassword: string
 }
+
+export interface UpdatePasswordResponse {
+  success: boolean;
+  message?: string;
+}
