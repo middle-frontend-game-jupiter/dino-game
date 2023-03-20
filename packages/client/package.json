@@ -9,18 +9,8 @@
     "lint": "eslint .",
     "format": "prettier --write .",
     "lint-staged": "lint-staged",
-    "test": "jest ./"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
-  "lint-staged": {
-    "*.+(js|jsx|json|yml|yaml|css|md|vue)": [
-      "npm run prettier",
-      "git add"
-    ]
+    "test": "jest ./",
+    "prepare": "husky install"
   },
   "dependencies": {
     "@emotion/react": "11.10.6",
