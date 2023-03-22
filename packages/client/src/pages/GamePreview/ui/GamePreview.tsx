@@ -1,10 +1,11 @@
 import React, { useEffect, useLayoutEffect, useRef, useState } from 'react'
 
-import { DinoGame } from '@/game'
+import { DinoGame, GAME_ACTIONS } from '@/game'
 import { Box } from '@mui/system'
 import { AppBar, Drawer, Toolbar, Typography } from '@mui/material'
 import { UserViewer } from '@/entities/auth'
 import { style } from './style'
+import { Canvas } from '@/shared/ui/Canvas/Canvas'
 
 const GamePreview = () => {
   const canvas = useRef<HTMLCanvasElement>(null)
@@ -17,8 +18,8 @@ const GamePreview = () => {
       DinoGame
         .execute(canvas.current, container.current)
         .start()
-        .on('GAME_OVER', () => setGameOver(true))
-        .on('GAME_RESET', () => setGameOver(false))
+        .on(GAME_ACTIONS.GAME_OVER, () => setGameOver(true))
+        .on(GAME_ACTIONS.GAME_RESET, () => setGameOver(false))
     }
   }, [])
 
@@ -53,9 +54,10 @@ const GamePreview = () => {
     
       <Box component="main" sx={style.content}>
         <Toolbar />
-        <div ref={container} style={style.container}>
-          <canvas ref={canvas} id="game"></canvas>
-        </div>
+        <Canvas 
+          canvas={canvas}
+          container={container}
+        />
       </Box>
     </Box>
   )

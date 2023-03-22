@@ -1,7 +1,1 @@
 @import 'reset.css';
-
-
-canvas {
-  border: 2px solid black;
-  width: inherit !important;
-}

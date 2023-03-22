@@ -1,3 +1,4 @@
+import { SCORE_STORAGE_KEY } from '../utils/constants'
 import { GameEntity } from './GameEntity'
 
 export class Score extends GameEntity {
@@ -18,9 +19,9 @@ export class Score extends GameEntity {
   }
 
   public setHighScore() {
-    const highScore = Number(localStorage.getItem('high-score'));
+    const highScore = Number(localStorage.getItem(SCORE_STORAGE_KEY));
     if (this.score > highScore) {
-      localStorage.setItem('high-score', Math.floor(this.score).toString());
+      localStorage.setItem(SCORE_STORAGE_KEY, Math.floor(this.score).toString());
     }
   }
 
@@ -29,7 +30,7 @@ export class Score extends GameEntity {
   }
 
   public draw() {
-    const highScore = Number(localStorage.getItem('high-score'));
+    const highScore = Number(localStorage.getItem(SCORE_STORAGE_KEY));
 
     const y = 20 * this.scaleRatio
 

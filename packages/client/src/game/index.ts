@@ -5,9 +5,9 @@ import { Score } from './entities/Score'
 import { getScaleRatio } from './utils/scale'
 import { CactiController } from './entities/Cactuses'
 
-import Observer from './utils/Observer'
-
 import type { GameImages } from './types/Images'
+
+export { GAME_ACTIONS } from './utils/actions'
 
 import {
   CACTI_CONFIG, 
@@ -23,6 +23,9 @@ import {
   PLAYER_HEIGHT, 
   PLAYER_WIDTH 
 } from './utils/constants'
+
+import Observer from '@/shared/lib/observer'
+import { GAME_ACTIONS } from './utils/actions'
 
 export class DinoGame extends Observer {
   canvas: HTMLCanvasElement
@@ -153,7 +156,7 @@ export class DinoGame extends Observer {
     const y = this.canvas.height / 2
     this.ctx.fillText("GAME OVER", x, y)
 
-    this.emit('GAME_OVER')
+    this.emit(GAME_ACTIONS.GAME_OVER)
   }
 
   start() {
@@ -232,7 +235,7 @@ export class DinoGame extends Observer {
 
     this.gameSpeed = GAME_SPEED_START
 
-    this.emit('GAME_RESET')
+    this.emit(GAME_ACTIONS.GAME_RESET)
   }
 
   setupGameReset() {
