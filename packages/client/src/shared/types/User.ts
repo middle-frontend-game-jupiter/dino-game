@@ -39,6 +39,6 @@ export interface UserPasswordUpdate {
 }
 
 export interface UpdatePasswordResponse {
-  success: boolean;
-  message?: string;
+  success: boolean
+  message?: string
 }

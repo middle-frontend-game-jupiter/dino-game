@@ -7,6 +7,8 @@ import { GamePreview } from '@/pages/GamePreview'
 import { AuthGuard } from '@/entities/auth'
 import { APP_ROUTES, RoutePath } from '@/shared/config'
 import { ProfilePage } from '@/pages/Profile'
+import { ForumList } from '@/pages/Forum/ui/Forum'
+import { ForumMessages } from '@/pages/ForumMessages/ui/ForumMessages'
 
 export const routeConfig: Record<APP_ROUTES, RouteProps> = {
   [APP_ROUTES.MAIN]: {
@@ -45,7 +47,15 @@ export const routeConfig: Record<APP_ROUTES, RouteProps> = {
     path: RoutePath.forum,
     element: (
       <AuthGuard>
-        <div>Forum Page</div>
+        <ForumList />
+      </AuthGuard>
+    ),
+  },
+  [APP_ROUTES.FORUM_MESSAGES]: {
+    path: RoutePath.forumMessages,
+    element: (
+      <AuthGuard>
+        <ForumMessages />
       </AuthGuard>
     ),
   },
