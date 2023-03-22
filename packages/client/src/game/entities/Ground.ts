@@ -2,12 +2,12 @@ import { GameEntity } from './GameEntity'
 import ground from '../images/ground.png'
 
 export class Ground extends GameEntity {
-  speed: number
-  scaleRatio: number
-  x: number
-  y: number
+  protected speed: number
+  protected scaleRatio: number
+  public x: number
+  public y: number
 
-  groundImage: HTMLImageElement
+  private groundImage: HTMLImageElement
 
 
   constructor(
@@ -28,11 +28,11 @@ export class Ground extends GameEntity {
     this.groundImage.src = ground
   }
 
-  update(gameSpeed: number, frameTimeDelta: number) {
+  public update(gameSpeed: number, frameTimeDelta: number) {
     this.x -= gameSpeed * frameTimeDelta * this.speed * this.scaleRatio
   }
 
-  draw() {
+  public draw() {
     this.ctx.drawImage(
       this.groundImage,
       this.x,
@@ -54,7 +54,7 @@ export class Ground extends GameEntity {
     }
   }
 
-  reset() {
+  public reset() {
     this.x = 0
   }
 }

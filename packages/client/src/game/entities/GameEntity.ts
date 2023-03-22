@@ -19,11 +19,11 @@ export abstract class GameEntity {
     this.height = height   
   }
 
-  update(...args: unknown[]): void {
+  public update(...args: unknown[]): void {
     throw Error('need implementing')
   }
 
-  draw(): void {
+  public draw(): void {
     throw Error('need implementing')
   }
 }

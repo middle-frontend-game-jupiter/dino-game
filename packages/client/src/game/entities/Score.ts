@@ -1,9 +1,9 @@
 import { GameEntity } from './GameEntity'
 
 export class Score extends GameEntity {
-  score = 0 as number
+  private score = 0 as number
 
-  scaleRatio: number
+  private scaleRatio: number
 
   constructor(
     ctx: CanvasRenderingContext2D, 
@@ -13,22 +13,22 @@ export class Score extends GameEntity {
     this.scaleRatio = scaleRatio
   }
 
-  update(frameTimeDelta: number) {
+  public update(frameTimeDelta: number) {
     this.score += frameTimeDelta * 0.01
   }
 
-  setHighScore() {
+  public setHighScore() {
     const highScore = Number(localStorage.getItem('high-score'));
     if (this.score > highScore) {
       localStorage.setItem('high-score', Math.floor(this.score).toString());
     }
   }
 
-  reset() {
+  public reset() {
     this.score = 0
   }
 
-  draw() {
+  public draw() {
     const highScore = Number(localStorage.getItem('high-score'));
 
     const y = 20 * this.scaleRatio

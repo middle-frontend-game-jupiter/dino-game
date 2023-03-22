@@ -29,7 +29,6 @@ export class DinoGame extends Observer {
   previousTime: number | null
   ctx: CanvasRenderingContext2D | null
 
-  scaleRatio = getScaleRatio()
   gameSpeed = GAME_SPEED_START
   gameOver = false
   hasAddedEventListenersForRestart = false
@@ -39,12 +38,19 @@ export class DinoGame extends Observer {
   ground: null | Ground
   score: null | Score
   cacti: null | CactiController
+  scaleRatio: number
+  container: HTMLDivElement
 
-  constructor(canvas: HTMLCanvasElement) {
+  constructor(canvas: HTMLCanvasElement, container: HTMLDivElement) {
     super()
     
     this.canvas = canvas
     this.previousTime = null
+
+    this.container = container
+
+    this.scaleRatio = getScaleRatio(container)
+
 
     this.ctx = this.canvas.getContext('2d')
 
@@ -130,7 +136,7 @@ export class DinoGame extends Observer {
   }
   
   setScreen() {
-    this.scaleRatio = getScaleRatio()
+    this.scaleRatio = getScaleRatio(this.container)
 
     this.canvas.width = GAME_WIDTH * this.scaleRatio
     this.canvas.height = GAME_HEIGHT * this.scaleRatio
@@ -246,7 +252,7 @@ export class DinoGame extends Observer {
     this.cacti && this.cacti.reset()
   }
 
-  static execute(canvas: HTMLCanvasElement) {
-    return new DinoGame(canvas)
+  static execute(canvas: HTMLCanvasElement, container: HTMLDivElement) {
+    return new DinoGame(canvas, container)
   }
 }

@@ -6,16 +6,16 @@ import { GameImages } from '../types/Images'
 
 
 export class CactiController extends GameEntity {
-  CACTUS_INTERVAL_MIN = 500
-  CACTUS_INTERVAL_MAX = 2000
+  protected CACTUS_INTERVAL_MIN = 500
+  protected CACTUS_INTERVAL_MAX = 2000
 
-  nextCactusInterval = 0 as number
-  cacti = [] as Cactus[]
+  protected nextCactusInterval = 0 as number
+  protected cacti = [] as Cactus[]
 
-  speed: number
+  protected speed: number
 
-  cactiImages: GameImages[]
-  scaleRatio: number
+  protected cactiImages: GameImages[]
+  protected scaleRatio: number
 
   constructor(
     ctx: CanvasRenderingContext2D, 
@@ -31,7 +31,7 @@ export class CactiController extends GameEntity {
     this.setNextCactusTime()
   }
 
-  setNextCactusTime() {
+  public setNextCactusTime() {
     const num = this.getRandomNumber(
       this.CACTUS_INTERVAL_MIN,
       this.CACTUS_INTERVAL_MAX
@@ -40,9 +40,6 @@ export class CactiController extends GameEntity {
     this.nextCactusInterval = num
   }
 
-  getRandomNumber(min: number, max: number) {
-    return Math.floor(Math.random() * (max - min + 1) + min)
-  }
 
   createCactus() {
     const index = this.getRandomNumber(0, this.cactiImages.length - 1)
@@ -63,7 +60,7 @@ export class CactiController extends GameEntity {
   }
 
 
-  update(gameSpeed: number, frameTimeDelta: number) {
+  public update(gameSpeed: number, frameTimeDelta: number) {
     if (this.nextCactusInterval <= 0) {
       this.createCactus()
       this.setNextCactusTime()
@@ -78,15 +75,19 @@ export class CactiController extends GameEntity {
     this.cacti = this.cacti.filter((cactus) => cactus.x > -cactus.width)
   }
 
-  draw() {
+  public draw() {
     this.cacti.forEach((cactus) => cactus.draw())
   }
 
-  collideWith(sprite: Sprite) {
+  public collideWith(sprite: Sprite) {
     return this.cacti.some((cactus) => cactus.collideWith(sprite))
   }
 
-  reset() {
+  public reset() {
     this.cacti = []
+  }
+
+  private getRandomNumber(min: number, max: number) {
+    return Math.floor(Math.random() * (max - min + 1) + min)
   }
 }

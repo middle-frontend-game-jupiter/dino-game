@@ -5,9 +5,9 @@ import type { GameImages } from '../types/Images'
 
 
 export class Cactus extends GameEntity {
-  x: number
-  y: number
-  image: GameImages['image']
+  public x: number
+  public y: number
+  public image: GameImages['image']
 
   constructor(
     ctx: CanvasRenderingContext2D, 
@@ -23,15 +23,15 @@ export class Cactus extends GameEntity {
     this.image = image
   }
 
-  update(speed: number, gameSpeed: number, frameTimeDelta: number, scaleRatio: number) {
+  public update(speed: number, gameSpeed: number, frameTimeDelta: number, scaleRatio: number) {
     this.x -= speed * gameSpeed * frameTimeDelta * scaleRatio
   }
 
-  draw() {
+  public draw() {
     this.ctx.drawImage(this.image, this.x, this.y, this.width, this.height)
   }
 
-  collideWith(sprite: Sprite) {
+  public collideWith(sprite: Sprite) {
     const adjustBy = 1.4
     return this.collide(sprite, adjustBy)
   }

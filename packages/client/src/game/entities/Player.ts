@@ -5,28 +5,28 @@ import dinoStanding from '../images/dino_standing.png'
 import { GameEntity } from './GameEntity'
 
 export class Player extends GameEntity {
-  WALK_ANIMATION_TIMER = 200
-  walkAnimationTimer = this.WALK_ANIMATION_TIMER
-  dinoRunImages = [] as HTMLImageElement[]
+  private WALK_ANIMATION_TIMER = 200
+  private walkAnimationTimer = this.WALK_ANIMATION_TIMER
+  private dinoRunImages = [] as HTMLImageElement[]
 
-  jumpPressed = false
-  jumpInProgress = false
-  falling = false
-  JUMP_SPEED = 0.6
-  GRAVITY = 0.4
+  private jumpPressed = false
+  private jumpInProgress = false
+  private falling = false
+  private JUMP_SPEED = 0.6
+  private GRAVITY = 0.4
 
 
-  minJumpHeight: number
-  maxJumpHeight: number
-  scaleRatio: number
+  private minJumpHeight: number
+  private maxJumpHeight: number
+  private scaleRatio: number
 
-  x: number
-  y: number
-  yStandingPosition: number
+  private standingStillImage: HTMLImageElement
+  private image: HTMLImageElement
 
-  standingStillImage: HTMLImageElement
-  image: HTMLImageElement
-
+  public x: number
+  public y: number
+  public yStandingPosition: number
+  
   constructor(
     ctx: CanvasRenderingContext2D, 
     width: number, 
@@ -72,27 +72,27 @@ export class Player extends GameEntity {
     window.addEventListener("touchend", this.touchend)
   }
 
-  touchstart = () => {
+  private touchstart = () => {
     this.jumpPressed = true
   }
 
-  touchend = () => {
+  private touchend = () => {
     this.jumpPressed = false
   }
 
-  keydown = (event: KeyboardEvent) => {
+  private keydown = (event: KeyboardEvent) => {
     if (event.code === "Space") {
       this.jumpPressed = true
     }
   }
 
-  keyup = (event: KeyboardEvent) => {
+  private keyup = (event: KeyboardEvent) => {
     if (event.code === "Space") {
       this.jumpPressed = false
     }
   }
 
-  update(gameSpeed: number, frameTimeDelta: number) {
+  public update(gameSpeed: number, frameTimeDelta: number) {
     this.run(gameSpeed, frameTimeDelta)
 
     if (this.jumpInProgress) {
@@ -102,7 +102,23 @@ export class Player extends GameEntity {
     this.jump(frameTimeDelta)
   }
 
-  jump(frameTimeDelta: number) {
+  public run(gameSpeed: number, frameTimeDelta: number) {
+    if (this.walkAnimationTimer <= 0) {
+      if (this.image === this.dinoRunImages[0]) {
+        this.image = this.dinoRunImages[1]
+      } else {
+        this.image = this.dinoRunImages[0]
+      }
+      this.walkAnimationTimer = this.WALK_ANIMATION_TIMER
+    }
+    this.walkAnimationTimer -= frameTimeDelta * gameSpeed
+  }
+
+  public draw() {
+    this.ctx.drawImage(this.image, this.x, this.y, this.width, this.height)
+  }
+
+  private jump(frameTimeDelta: number) {
     if (this.jumpPressed) {
       this.jumpInProgress = true
     }
@@ -127,21 +143,5 @@ export class Player extends GameEntity {
         this.jumpInProgress = false
       }
     }
-  }
-
-  run(gameSpeed: number, frameTimeDelta: number) {
-    if (this.walkAnimationTimer <= 0) {
-      if (this.image === this.dinoRunImages[0]) {
-        this.image = this.dinoRunImages[1]
-      } else {
-        this.image = this.dinoRunImages[0]
-      }
-      this.walkAnimationTimer = this.WALK_ANIMATION_TIMER
-    }
-    this.walkAnimationTimer -= frameTimeDelta * gameSpeed
-  }
-
-  draw() {
-    this.ctx.drawImage(this.image, this.x, this.y, this.width, this.height)
   }
 }
