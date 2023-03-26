@@ -1,2 +1,2 @@
 export { AuthGuard } from './AuthGuard'
-export { UserViewer } from './UserViewer';
+export { UserViewer } from './UserViewer'

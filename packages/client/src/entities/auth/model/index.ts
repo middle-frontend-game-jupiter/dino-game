@@ -1,10 +1,14 @@
 import { reducer } from './authSlice'
-import { authErrorReasonSelector, isAuthUserSelector, getUserSelector } from './selectors'
+import {
+  authErrorReasonSelector,
+  isAuthUserSelector,
+  getUserSelector,
+} from './selectors'
 
 const selectors = {
   authErrorReasonSelector,
   isAuthUserSelector,
-  getUserSelector
+  getUserSelector,
 }
 
 export { reducer, selectors }

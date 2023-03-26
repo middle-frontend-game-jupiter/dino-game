@@ -1,15 +1,14 @@
-import React from 'react';
-import { useParams } from 'react-router-dom';
-import Typography from '@mui/material/Typography';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemText from '@mui/material/ListItemText';
-import Button from '@mui/material/Button';
-import Grid from '@mui/material/Grid';
-import { Form, Field } from 'react-final-form';
-import { TextFieldForm } from '@/shared/hocs/formHocs';
-import useStyles from './styles';
-
+import React from 'react'
+import { useParams } from 'react-router-dom'
+import Typography from '@mui/material/Typography'
+import List from '@mui/material/List'
+import ListItem from '@mui/material/ListItem'
+import ListItemText from '@mui/material/ListItemText'
+import Button from '@mui/material/Button'
+import Grid from '@mui/material/Grid'
+import { Form, Field } from 'react-final-form'
+import { TextFieldForm } from '@/shared/hocs/formHocs'
+import useStyles from './styles'
 
 interface Message {
   id: number
@@ -41,7 +40,6 @@ type AddMessageFormValues = {
 }
 
 export const ForumMessages: React.FC = () => {
-
   const styles = useStyles()
   const { id } = useParams<{ id: string }>()
 

@@ -1,24 +1,24 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import Typography from '@mui/material/Typography';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemText from '@mui/material/ListItemText';
-import Button from '@mui/material/Button';
-import Dialog from '@mui/material/Dialog';
-import DialogTitle from '@mui/material/DialogTitle';
-import DialogContent from '@mui/material/DialogContent';
-import DialogActions from '@mui/material/DialogActions';
-import Grid from '@mui/material/Grid';
-import { Form, Field } from 'react-final-form';
-import { RoutePath } from '@/shared/config';
-import { TextFieldForm } from '@/shared/hocs/formHocs';
-import useStyles from './styles';
+import React from 'react'
+import { Link } from 'react-router-dom'
+import Typography from '@mui/material/Typography'
+import List from '@mui/material/List'
+import ListItem from '@mui/material/ListItem'
+import ListItemText from '@mui/material/ListItemText'
+import Button from '@mui/material/Button'
+import Dialog from '@mui/material/Dialog'
+import DialogTitle from '@mui/material/DialogTitle'
+import DialogContent from '@mui/material/DialogContent'
+import DialogActions from '@mui/material/DialogActions'
+import Grid from '@mui/material/Grid'
+import { Form, Field } from 'react-final-form'
+import { RoutePath } from '@/shared/config'
+import { TextFieldForm } from '@/shared/hocs/formHocs'
+import useStyles from './styles'
 
 interface Topic {
-  id: number;
-  title: string;
-  description: string;
+  id: number
+  title: string
+  description: string
 }
 
 const array: Topic[] = [
@@ -38,16 +38,16 @@ const array: Topic[] = [
     title: 'Форум о программировании',
     description: 'Обсуждаем айтишные мемы',
   },
-];
+]
 
 export const ForumList: React.FC = () => {
-  const styles = useStyles();
-  const [isModalOpen, setIsModalOpen] = React.useState<boolean>(false);
+  const styles = useStyles()
+  const [isModalOpen, setIsModalOpen] = React.useState<boolean>(false)
 
   const handleAddForum = (values: any) => {
-    console.log('Submitted values:', values);
-    setIsModalOpen(false);
-  };
+    console.log('Submitted values:', values)
+    setIsModalOpen(false)
+  }
 
   return (
     <Grid sx={styles.root}>
@@ -59,25 +59,20 @@ export const ForumList: React.FC = () => {
           <Button
             variant="contained"
             color="primary"
-            onClick={() => setIsModalOpen(true)}
-          >
+            onClick={() => setIsModalOpen(true)}>
             Create forum
           </Button>
         </Grid>
       </Grid>
       <List>
-        {array.map((topic) => (
+        {array.map(topic => (
           <ListItem
             sx={styles.listItem}
             key={topic.id}
             button
             component={Link}
-            to={`${RoutePath.forum_messages}/${topic.id}`}
-          >
-            <ListItemText
-              primary={topic.title}
-              secondary={topic.description}
-            />
+            to={`${RoutePath.forum_messages}/${topic.id}`}>
+            <ListItemText primary={topic.title} secondary={topic.description} />
           </ListItem>
         ))}
       </List>
@@ -115,5 +110,5 @@ export const ForumList: React.FC = () => {
         />
       </Dialog>
     </Grid>
-  );
-};
+  )
+}
