@@ -15,4 +15,8 @@ export default (): Record<string, SxProps<Theme>> => ({
     display: 'flex',
     gap: '1rem',
   },
+
+  avatar: {
+    cursor: "pointer"
+  }
 })

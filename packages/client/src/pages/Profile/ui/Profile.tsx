@@ -10,7 +10,8 @@ import { RoutePath } from '@/shared/config'
 import { ChangePasswordModal } from '@/pages/Profile/ui/PasswordModal'
 import Button from '@mui/material/Button'
 import { useNavigate } from 'react-router'
-import { useUpdateAvatarMutation } from '@/entities/user/api'
+import { useUpdateAvatarMutation } from '@/services/user'
+import { BASE_RESOURCES_URL } from '@/services/api'
 
 interface IItem {
   label: string
@@ -36,11 +37,26 @@ const Profile: FC = () => {
   const styles = useStyles()
   const navigate = useNavigate()
   const { infoList, user } = useAppSelector(getProfileSelector)
+  const [updateAvatar] = useUpdateAvatarMutation()
+  const handleAvatarChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0]
+    if (file) {
+      const formData = new FormData()
+      formData.append('avatar', file)
+      await updateAvatar(formData).unwrap()
+    }
+  }
 
   return (
     <Grid component={Container} container sx={styles.root}>
+      <input
+        type="file"
+        id="avatar-input"
+        onChange={handleAvatarChange}
+        hidden
+      />
       <label htmlFor="avatar-input">
-        <Avatar alt="avatar" src={user?.avatar} />
+        <Avatar sx={styles.avatar} alt="avatar" src={BASE_RESOURCES_URL + user?.avatar} />
       </label>
       <Typography variant="body1">{user?.displayName}</Typography>
       {infoList?.map(item => (
