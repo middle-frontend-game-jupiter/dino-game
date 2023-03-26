@@ -10,4 +10,9 @@ export default (): Record<string, SxProps<Theme>> => ({
     height: '100vh',
     width: '50%',
   },
+
+  buttonContainer: {
+    display: 'flex',
+    gap: '1rem',
+  },
 })
