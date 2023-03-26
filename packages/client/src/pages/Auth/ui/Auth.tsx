@@ -22,7 +22,9 @@ const Auth: FC = () => {
   const errorReason = useAppSelector(
     authModel.selectors.authErrorReasonSelector
   )
+
   const isAuth = useAppSelector(authModel.selectors.isAuthUserSelector)
+  
   const [authQuery, { isLoading, isError }] = useSignInMutation()
 
   const onSubmit = useCallback((form: UserSignIn) => authQuery(form), [])
@@ -66,7 +68,8 @@ const Auth: FC = () => {
                 variant="contained"
                 disabled={isLoading}
                 loading={isLoading}
-                type="submit">
+                type="submit"
+              >
                 Log in
               </LoadingButton>
               <Grid container width="auto" alignItems="center" gap={1}>

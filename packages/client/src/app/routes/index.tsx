@@ -7,6 +7,7 @@ import { GamePreview } from '@/pages/GamePreview'
 import { AuthGuard } from '@/entities/auth'
 import { APP_ROUTES, RoutePath } from '@/shared/config'
 import { ProfilePage } from '@/pages/Profile'
+import { UserSettingsPage } from '@/pages/Settings';
 
 export const routeConfig: Record<APP_ROUTES, RouteProps> = {
   [APP_ROUTES.MAIN]: {
@@ -65,7 +66,7 @@ export const routeConfig: Record<APP_ROUTES, RouteProps> = {
     path: RoutePath.settings,
     element: (
       <AuthGuard>
-        <div>settings</div>
+        <UserSettingsPage />
       </AuthGuard>
     ),
   },
