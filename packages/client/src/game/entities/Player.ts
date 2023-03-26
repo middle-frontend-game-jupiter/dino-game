@@ -15,7 +15,6 @@ export class Player extends GameEntity {
   private JUMP_SPEED = 0.6
   private GRAVITY = 0.4
 
-
   private minJumpHeight: number
   private maxJumpHeight: number
   private scaleRatio: number
@@ -26,13 +25,13 @@ export class Player extends GameEntity {
   public x: number
   public y: number
   public yStandingPosition: number
-  
+
   constructor(
-    ctx: CanvasRenderingContext2D, 
-    width: number, 
-    height: number, 
-    minJumpHeight: number, 
-    maxJumpHeight: number, 
+    ctx: CanvasRenderingContext2D,
+    width: number,
+    height: number,
+    minJumpHeight: number,
+    maxJumpHeight: number,
     scaleRatio: number
   ) {
     super({ ctx, width, height })
@@ -58,18 +57,17 @@ export class Player extends GameEntity {
     this.dinoRunImages.push(dinoRunImage1)
     this.dinoRunImages.push(dinoRunImage2)
 
+    window.removeEventListener('keydown', this.keydown)
+    window.removeEventListener('keyup', this.keyup)
 
-    window.removeEventListener("keydown", this.keydown)
-    window.removeEventListener("keyup", this.keyup)
+    window.addEventListener('keydown', this.keydown)
+    window.addEventListener('keyup', this.keyup)
 
-    window.addEventListener("keydown", this.keydown)
-    window.addEventListener("keyup", this.keyup)
+    window.removeEventListener('touchstart', this.touchstart)
+    window.removeEventListener('touchend', this.touchend)
 
-    window.removeEventListener("touchstart", this.touchstart)
-    window.removeEventListener("touchend", this.touchend)
-
-    window.addEventListener("touchstart", this.touchstart)
-    window.addEventListener("touchend", this.touchend)
+    window.addEventListener('touchstart', this.touchstart)
+    window.addEventListener('touchend', this.touchend)
   }
 
   private touchstart = () => {
@@ -81,13 +79,13 @@ export class Player extends GameEntity {
   }
 
   private keydown = (event: KeyboardEvent) => {
-    if (event.code === "Space") {
+    if (event.code === 'Space') {
       this.jumpPressed = true
     }
   }
 
   private keyup = (event: KeyboardEvent) => {
-    if (event.code === "Space") {
+    if (event.code === 'Space') {
       this.jumpPressed = false
     }
   }

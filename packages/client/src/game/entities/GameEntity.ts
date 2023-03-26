@@ -10,13 +10,11 @@ export abstract class GameEntity {
   width: number
   height: number
 
-  constructor({
-    ctx, width, height
-  }: GameEntityProps) {
+  constructor({ ctx, width, height }: GameEntityProps) {
     this.ctx = ctx
     this.canvas = ctx.canvas
     this.width = width
-    this.height = height   
+    this.height = height
   }
 
   public update(...args: unknown[]): void {

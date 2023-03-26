@@ -1,7 +1,7 @@
 import {
   UpdatePasswordResponse,
   UserPasswordUpdate,
-  UserProfileAvatar
+  UserProfileAvatar,
 } from '@/shared/types/User'
 import { api } from '@/services/api'
 
@@ -18,7 +18,10 @@ export const userApi = api
         }),
       }),
 
-      updatePassword: builder.mutation<UpdatePasswordResponse, UserPasswordUpdate>({
+      updatePassword: builder.mutation<
+        UpdatePasswordResponse,
+        UserPasswordUpdate
+      >({
         query: data => ({
           url: 'user/password',
           method: 'PUT',

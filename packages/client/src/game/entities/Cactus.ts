@@ -3,18 +3,17 @@ import { GameEntity } from './GameEntity'
 import type { Sprite } from '../types/Sprite'
 import type { GameImages } from '../types/Images'
 
-
 export class Cactus extends GameEntity {
   public x: number
   public y: number
   public image: GameImages['image']
 
   constructor(
-    ctx: CanvasRenderingContext2D, 
-    x: number, 
-    y: number, 
-    width: number, 
-    height: number, 
+    ctx: CanvasRenderingContext2D,
+    x: number,
+    y: number,
+    width: number,
+    height: number,
     image: GameImages['image']
   ) {
     super({ ctx, width, height })
@@ -23,7 +22,12 @@ export class Cactus extends GameEntity {
     this.image = image
   }
 
-  public update(speed: number, gameSpeed: number, frameTimeDelta: number, scaleRatio: number) {
+  public update(
+    speed: number,
+    gameSpeed: number,
+    frameTimeDelta: number,
+    scaleRatio: number
+  ) {
     this.x -= speed * gameSpeed * frameTimeDelta * scaleRatio
   }
 
@@ -37,9 +41,11 @@ export class Cactus extends GameEntity {
   }
 
   private collide(sprite: Sprite, adjustBy: number) {
-    return sprite.x < this.x + this.width / adjustBy 
-      && sprite.x + sprite.width / adjustBy > this.x 
-      && sprite.y < this.y + this.height / adjustBy 
-      && sprite.height + sprite.y / adjustBy > this.y
+    return (
+      sprite.x < this.x + this.width / adjustBy &&
+      sprite.x + sprite.width / adjustBy > this.x &&
+      sprite.y < this.y + this.height / adjustBy &&
+      sprite.height + sprite.y / adjustBy > this.y
+    )
   }
 }

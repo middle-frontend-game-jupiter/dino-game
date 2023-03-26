@@ -2,7 +2,7 @@ export type Listener<T extends unknown[] = any[]> = (...args: T) => void
 
 export default class Observer<
   E extends string = string,
-  M extends { [K in E]: unknown[] } = Record<E, any[]>,
+  M extends { [K in E]: unknown[] } = Record<E, any[]>
 > {
   private listeners: { [key in E]?: Listener<M[E]>[] } = {}
 
@@ -22,7 +22,7 @@ export default class Observer<
     }
 
     this.listeners[event] = this.listeners[event]!.filter(
-      (listener) => listener !== callback,
+      listener => listener !== callback
     )
   }
 

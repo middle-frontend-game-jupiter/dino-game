@@ -1,4 +1,4 @@
-import { Theme } from "@mui/material";
+import { Theme } from '@mui/material'
 
 export const style = {
   drawer: {
@@ -12,11 +12,11 @@ export const style = {
   },
 
   toolbar: {
-    display: 'flex', 
-    justifyContent: 'space-between', 
+    display: 'flex',
+    justifyContent: 'space-between',
   },
 
   content: { flexGrow: 1, p: 3 },
 
-  container: {width: '100%', height: '400px' }
+  container: { width: '100%', height: '400px' },
 }

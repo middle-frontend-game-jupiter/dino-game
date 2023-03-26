@@ -14,9 +14,8 @@ const GamePreview = () => {
   const [gameOver, setGameOver] = useState<boolean>(false)
 
   useLayoutEffect(() => {
-    if(canvas.current && container.current) {
-      DinoGame
-        .execute(canvas.current, container.current)
+    if (canvas.current && container.current) {
+      DinoGame.execute(canvas.current, container.current)
         .start()
         .on(GAME_ACTIONS.GAME_OVER, () => setGameOver(true))
         .on(GAME_ACTIONS.GAME_RESET, () => setGameOver(false))
@@ -24,18 +23,14 @@ const GamePreview = () => {
   }, [])
 
   useEffect(() => {
-    if(gameOver) {
+    if (gameOver) {
       console.log('CALL ENTTITY API LEADERBOARD FROR VIEW LIST IN DRAWER')
     }
   }, [gameOver])
 
-
   return (
-    <Box sx={{ display: 'flex'}}>
-      <AppBar 
-        position="fixed" 
-        sx={style.appbar}
-      >
+    <Box sx={{ display: 'flex' }}>
+      <AppBar position="fixed" sx={style.appbar}>
         <Toolbar sx={style.toolbar}>
           <Typography variant="h6" noWrap component="div">
             Dino
@@ -45,19 +40,13 @@ const GamePreview = () => {
         </Toolbar>
       </AppBar>
 
-      <Drawer
-        variant="permanent"
-        sx={style.drawer}
-      >
+      <Drawer variant="permanent" sx={style.drawer}>
         <Toolbar />
       </Drawer>
-    
+
       <Box component="main" sx={style.content}>
         <Toolbar />
-        <Canvas 
-          canvas={canvas}
-          container={container}
-        />
+        <Canvas canvas={canvas} container={container} />
       </Box>
     </Box>
   )

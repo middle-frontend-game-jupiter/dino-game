@@ -9,12 +9,11 @@ export class Ground extends GameEntity {
 
   private groundImage: HTMLImageElement
 
-
   constructor(
-    ctx: CanvasRenderingContext2D, 
-    width: number, 
-    height: number, 
-    speed: number, 
+    ctx: CanvasRenderingContext2D,
+    width: number,
+    height: number,
+    speed: number,
     scaleRatio: number
   ) {
     super({ ctx, width, height })
