@@ -1,23 +1,24 @@
-import React, { useState } from 'react'
-import { Navigate, Link } from 'react-router-dom'
-import { makeStyles } from '@mui/styles'
-import {
-  Typography,
-  List,
-  ListItem,
-  ListItemText,
-  Button,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogActions,
-  TextField,
-} from '@mui/material'
+import React from 'react';
+import { Link } from 'react-router-dom';
+import Typography from '@mui/material/Typography';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemText from '@mui/material/ListItemText';
+import Button from '@mui/material/Button';
+import Dialog from '@mui/material/Dialog';
+import DialogTitle from '@mui/material/DialogTitle';
+import DialogContent from '@mui/material/DialogContent';
+import DialogActions from '@mui/material/DialogActions';
+import Grid from '@mui/material/Grid';
+import { Form, Field } from 'react-final-form';
+import { RoutePath } from '@/shared/config';
+import { TextFieldForm } from '@/shared/hocs/formHocs';
+import useStyles from './styles';
 
 interface Topic {
-  id: number
-  title: string
-  description: string
+  id: number;
+  title: string;
+  description: string;
 }
 
 const array: Topic[] = [
@@ -37,108 +38,82 @@ const array: Topic[] = [
     title: 'Форум о программировании',
     description: 'Обсуждаем айтишные мемы',
   },
-]
-
-const useStyles = makeStyles(() => ({
-  root: {
-    margin: '0 auto',
-    padding: 20,
-  },
-
-  head: {
-    display: 'flex',
-    justifyContent: 'space-between',
-  },
-
-  listItem: {
-    border: '1px solid blue',
-    marginBottom: '10px',
-  },
-
-  buttonContainer: {
-    display: 'flex',
-    gap: '1rem',
-  },
-}))
+];
 
 export const ForumList: React.FC = () => {
-  const classes = useStyles()
+  const styles = useStyles();
+  const [isModalOpen, setIsModalOpen] = React.useState<boolean>(false);
 
-  const [navigateToHome, setNavigateToHome] = useState(false)
-  const [open, setOpen] = useState(false)
-  const [name, setName] = useState('')
-  const [description, setDescription] = useState('')
-
-  const handleAddForum = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
-    setOpen(false)
-    setName('')
-    setDescription('')
-  }
-
-  if (navigateToHome) return <Navigate to="/" replace={true} />
+  const handleAddForum = (values: any) => {
+    console.log('Submitted values:', values);
+    setIsModalOpen(false);
+  };
 
   return (
-    <div className={classes.root}>
-      <div className={classes.head}>
+    <Grid sx={styles.root}>
+      <Grid sx={styles.head}>
         <Typography variant="h4" gutterBottom>
-          Список тем форума
+          Forum topics list
         </Typography>
-        <div className={classes.buttonContainer}>
+        <Grid sx={styles.buttonContainer}>
           <Button
             variant="contained"
             color="primary"
-            onClick={() => setOpen(true)}>
-            Добавить форум
+            onClick={() => setIsModalOpen(true)}
+          >
+            Create forum
           </Button>
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={() => setNavigateToHome(true)}>
-            На главную
-          </Button>
-        </div>
-      </div>
+        </Grid>
+      </Grid>
       <List>
-        {array.map(topic => (
+        {array.map((topic) => (
           <ListItem
-            className={classes.listItem}
+            sx={styles.listItem}
             key={topic.id}
             button
             component={Link}
-            to={`/forumMessages/${topic.id}`}>
-            <ListItemText primary={topic.title} secondary={topic.description} />
+            to={`${RoutePath.forum_messages}/${topic.id}`}
+          >
+            <ListItemText
+              primary={topic.title}
+              secondary={topic.description}
+            />
           </ListItem>
         ))}
       </List>
-      <Dialog open={open} onClose={() => setOpen(false)}>
-        <form onSubmit={handleAddForum}>
-          <DialogTitle>Добавление форума</DialogTitle>
-          <DialogContent>
-            <TextField
-              autoFocus
-              margin="dense"
-              label="Название"
-              value={name}
-              onChange={event => setName(event.target.value)}
-              fullWidth
-            />
-            <TextField
-              margin="dense"
-              label="Описание"
-              value={description}
-              onChange={event => setDescription(event.target.value)}
-              fullWidth
-            />
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={() => setOpen(false)}>Отмена</Button>
-            <Button type="submit" variant="contained" color="primary">
-              Добавить
-            </Button>
-          </DialogActions>
-        </form>
+      <Dialog open={isModalOpen} onClose={() => setIsModalOpen(false)}>
+        <Form
+          onSubmit={handleAddForum}
+          render={({ handleSubmit }) => (
+            <form onSubmit={handleSubmit}>
+              <DialogTitle>Add new forum</DialogTitle>
+              <DialogContent>
+                <Field
+                  component={TextFieldForm}
+                  autoFocus
+                  margin="dense"
+                  label="Forum Name"
+                  name="title"
+                  fullWidth
+                />
+                <Field
+                  component={TextFieldForm}
+                  margin="dense"
+                  label="Forum description"
+                  name="description"
+                  fullWidth
+                />
+              </DialogContent>
+              <DialogActions>
+                <Button onClick={() => setIsModalOpen(false)}>Отмена</Button>
+                <Button type="submit" variant="contained" color="primary">
+                  Добавить
+                </Button>
+              </DialogActions>
+            </form>
+          )}
+        />
       </Dialog>
-    </div>
-  )
-}
+    </Grid>
+  );
+};

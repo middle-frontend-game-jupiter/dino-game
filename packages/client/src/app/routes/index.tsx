@@ -52,7 +52,7 @@ export const routeConfig: Record<APP_ROUTES, RouteProps> = {
     ),
   },
   [APP_ROUTES.FORUM_MESSAGES]: {
-    path: RoutePath.forumMessages,
+    path: RoutePath.forum_messages,
     element: (
       <AuthGuard>
         <ForumMessages />

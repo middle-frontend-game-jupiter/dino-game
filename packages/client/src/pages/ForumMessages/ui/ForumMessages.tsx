@@ -1,14 +1,15 @@
-import React, { useState } from 'react'
-import { Navigate, useParams } from 'react-router-dom'
-import { makeStyles } from '@mui/styles'
-import {
-  Typography,
-  List,
-  ListItem,
-  ListItemText,
-  TextField,
-  Button,
-} from '@mui/material'
+import React from 'react';
+import { useParams } from 'react-router-dom';
+import Typography from '@mui/material/Typography';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemText from '@mui/material/ListItemText';
+import Button from '@mui/material/Button';
+import Grid from '@mui/material/Grid';
+import { Form, Field } from 'react-final-form';
+import { TextFieldForm } from '@/shared/hocs/formHocs';
+import useStyles from './styles';
+
 
 interface Message {
   id: number
@@ -24,104 +25,64 @@ const array: Message[] = [
     message: 'Привет как дела?',
   },
   {
-    id: 1,
+    id: 2,
     name: 'Вася',
     message: 'Норм',
   },
   {
-    id: 1,
+    id: 3,
     name: 'Алекс',
     message: 'хорошо',
   },
 ]
 
-const useStyles = makeStyles(() => ({
-  root: {
-    margin: '0 auto',
-    padding: 20,
-  },
-  head: {
-    display: 'flex',
-    justifyContent: 'space-between',
-  },
-  buttonContainer: {
-    display: 'flex',
-    gap: '1rem',
-  },
-  messages: {
-    marginTop: 20,
-  },
-  listItem: {
-    border: '1px solid blue',
-    marginBottom: '10px',
-  },
-  form: {
-    display: 'flex',
-    alignItems: 'center',
-    marginTop: 20,
-  },
-  input: {
-    flex: 1,
-    marginRight: 10,
-  },
-}))
+type AddMessageFormValues = {
+  message: string
+}
 
 export const ForumMessages: React.FC = () => {
-  const [navigateToHome, setNavigateToHome] = useState(false)
-  const [navigateToForum, setNavigateToForum] = useState(false)
 
-  const classes = useStyles()
+  const styles = useStyles()
   const { id } = useParams<{ id: string }>()
-  const [message, setMessage] = useState('')
 
-  const handleAddMessage = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
-    setMessage('')
+  const handleAddMessage = (values: AddMessageFormValues) => {
+    console.log(values.message)
   }
 
-  if (navigateToHome) return <Navigate to="/" replace={true} />
-  if (navigateToForum) return <Navigate to="/forum" replace={true} />
-
   return (
-    <div className={classes.root}>
-      <div className={classes.head}>
+    <Grid sx={styles.root}>
+      <Grid sx={styles.head}>
         <Typography variant="h4" gutterBottom>
           Сообщения форума {id}
         </Typography>
-        <div className={classes.buttonContainer}>
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={() => setNavigateToForum(true)}>
-            Назад
-          </Button>
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={() => setNavigateToHome(true)}>
-            На главную
-          </Button>
-        </div>
-      </div>
-      <List className={classes.messages}>
+      </Grid>
+      <List sx={styles.messages}>
         {array.map(message => (
-          <ListItem className={classes.listItem} key={message.id}>
+          <ListItem sx={styles.listItem} key={message.id}>
             <ListItemText primary={message.name} secondary={message.message} />
           </ListItem>
         ))}
       </List>
-      <form className={classes.form} onSubmit={handleAddMessage}>
-        <TextField
-          className={classes.input}
-          variant="outlined"
-          label="Введите сообщение"
-          value={message}
-          onChange={event => setMessage(event.target.value)}
-        />
-        <Button type="submit" variant="contained" color="primary">
-          Отправить
-        </Button>
-      </form>
-    </div>
+      <Form onSubmit={handleAddMessage} initialValues={{ message: '' }}>
+        {({ handleSubmit }) => (
+          <form onSubmit={handleSubmit}>
+            <Field name="message">
+              {({ input }) => (
+                <Field
+                  component={TextFieldForm}
+                  sx={styles.input}
+                  variant="outlined"
+                  label="Write a message"
+                  {...input}
+                />
+              )}
+            </Field>
+            <Button type="submit" variant="contained" color="primary">
+              Отправить
+            </Button>
+          </form>
+        )}
+      </Form>
+    </Grid>
   )
 }
