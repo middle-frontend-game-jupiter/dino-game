@@ -7,6 +7,7 @@ import {
 } from '@/shared/types/User'
 import { api } from '@/services/api'
 import { UserMapper } from '@/mappers/User'
+import { ApiError } from '@/shared/types/Errors'
 
 
 export const userApi = api
@@ -31,7 +32,7 @@ export const userApi = api
         }),
       }),
 
-      updateProfile: builder.mutation<UserServerEntity, UserEntity>({
+      updateProfile: builder.mutation<UserServerEntity | ApiError, UserEntity>({
         query: data => ({
           url: 'user/profile',
           method: 'PUT',
@@ -45,5 +46,5 @@ export const userApi = api
 export const { useUpdateAvatarMutation, useUpdatePasswordMutation, useUpdateProfileMutation } = userApi
 
 export const {
-  endpoints: { updateAvatar, updatePassword },
+  endpoints: { updateAvatar, updatePassword, updateProfile },
 } = userApi

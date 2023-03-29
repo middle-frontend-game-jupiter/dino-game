@@ -2,8 +2,7 @@ import React, { useEffect, useLayoutEffect, useRef, useState } from 'react'
 
 import { DinoGame, GAME_ACTIONS } from '@/game'
 import { Box } from '@mui/system'
-import { AppBar, Drawer, Toolbar, Typography } from '@mui/material'
-import { UserViewer } from '@/entities/auth'
+import { Drawer, Toolbar } from '@mui/material'
 import { style } from './style'
 import { Canvas } from '@/shared/ui/Canvas/Canvas'
 
@@ -32,19 +31,6 @@ const GamePreview = () => {
 
   return (
     <Box sx={{ display: 'flex'}}>
-      <AppBar 
-        position="fixed" 
-        sx={style.appbar}
-      >
-        <Toolbar sx={style.toolbar}>
-          <Typography variant="h6" noWrap component="div">
-            Dino
-          </Typography>
-
-          <UserViewer />
-        </Toolbar>
-      </AppBar>
-
       <Drawer
         variant="permanent"
         sx={style.drawer}

@@ -6,7 +6,7 @@ import { useNavigate } from "react-router"
 import { authModel } from ".."
 import { style } from "./style"
 
-export function UserViewer(): JSX.Element | null {
+export const UserViewer = (): JSX.Element | null => {
   const navigate = useNavigate()
   const user = useAppSelector(authModel.selectors.getUserSelector)
 
