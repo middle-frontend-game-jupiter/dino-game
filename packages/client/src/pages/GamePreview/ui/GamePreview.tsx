@@ -1,6 +1,6 @@
-import React, { useEffect, useLayoutEffect, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useRef } from 'react'
 
-import { DinoGame, GAME_ACTIONS } from '@/game'
+import { DinoGame } from '@/game'
 import { Box } from '@mui/system'
 import { Drawer, Toolbar } from '@mui/material'
 import { style } from './style'
@@ -9,25 +9,36 @@ import { Canvas } from '@/shared/ui/Canvas/Canvas'
 const GamePreview = () => {
   const canvas = useRef<HTMLCanvasElement>(null)
   const container = useRef<HTMLDivElement>(null)
+  const game = useRef<typeof DinoGame | null>()
 
-  const [gameOver, setGameOver] = useState<boolean>(false)
+  game.current = DinoGame;
 
-  useLayoutEffect(() => {
-    if(canvas.current && container.current) {
-      DinoGame
-        .execute(canvas.current, container.current)
-        .start()
-        .on(GAME_ACTIONS.GAME_OVER, () => setGameOver(true))
-        .on(GAME_ACTIONS.GAME_RESET, () => setGameOver(false))
-    }
+  const onEnd = useCallback((score: number) => {
+    console.log(score)
+  }, [])
+
+  const onStart = useCallback(() =>{
+    console.log('start')
   }, [])
 
   useEffect(() => {
-    if(gameOver) {
-      console.log('CALL ENTTITY API LEADERBOARD FROR VIEW LIST IN DRAWER')
-    }
-  }, [gameOver])
+    let instance = undefined as DinoGame | undefined;
 
+    if(container.current && canvas.current) {
+      instance = game.current?.execute(canvas.current, {
+        container: container.current,
+        onEnd,
+        onStart,
+      })
+
+      instance?.start()
+    }
+
+    return () => {
+      game.current = null;
+      instance = undefined;
+    }
+  }, [])
 
   return (
     <Box sx={{ display: 'flex'}}>

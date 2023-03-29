@@ -1,7 +1,7 @@
 import { GAME_WIDTH, GAME_HEIGHT } from './constants';
 
 
-export function getScaleRatio(container: HTMLDivElement) {
+export function getScaleRatio(container: HTMLElement | HTMLBodyElement) {
   const screenHeight = Math.min(
     window.innerHeight,
     container.clientHeight
