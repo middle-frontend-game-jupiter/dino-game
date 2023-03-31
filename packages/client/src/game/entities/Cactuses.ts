@@ -4,7 +4,6 @@ import { GameEntity } from './GameEntity'
 import type { Sprite } from '../types/Sprite'
 import { GameImages } from '../types/Images'
 
-
 export class CactiController extends GameEntity {
   protected CACTUS_INTERVAL_MIN = 500
   protected CACTUS_INTERVAL_MAX = 2000
@@ -18,9 +17,9 @@ export class CactiController extends GameEntity {
   protected scaleRatio: number
 
   constructor(
-    ctx: CanvasRenderingContext2D, 
-    cactiImages: GameImages[], 
-    scaleRatio: number, 
+    ctx: CanvasRenderingContext2D,
+    cactiImages: GameImages[],
+    scaleRatio: number,
     speed: number
   ) {
     super({ ctx, width: 0, height: 0 })
@@ -40,7 +39,6 @@ export class CactiController extends GameEntity {
     this.nextCactusInterval = num
   }
 
-
   createCactus() {
     const index = this.getRandomNumber(0, this.cactiImages.length - 1)
     const cactusImage = this.cactiImages[index]
@@ -59,7 +57,6 @@ export class CactiController extends GameEntity {
     this.cacti.push(cactus)
   }
 
-
   public update(gameSpeed: number, frameTimeDelta: number) {
     if (this.nextCactusInterval <= 0) {
       this.createCactus()
@@ -68,19 +65,19 @@ export class CactiController extends GameEntity {
 
     this.nextCactusInterval -= frameTimeDelta
 
-    this.cacti.forEach((cactus) => {
+    this.cacti.forEach(cactus => {
       cactus.update(this.speed, gameSpeed, frameTimeDelta, this.scaleRatio)
     })
 
-    this.cacti = this.cacti.filter((cactus) => cactus.x > -cactus.width)
+    this.cacti = this.cacti.filter(cactus => cactus.x > -cactus.width)
   }
 
   public draw() {
-    this.cacti.forEach((cactus) => cactus.draw())
+    this.cacti.forEach(cactus => cactus.draw())
   }
 
   public collideWith(sprite: Sprite) {
-    return this.cacti.some((cactus) => cactus.collideWith(sprite))
+    return this.cacti.some(cactus => cactus.collideWith(sprite))
   }
 
   public reset() {

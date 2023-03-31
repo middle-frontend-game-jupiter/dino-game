@@ -1,5 +1,5 @@
 export interface GameImages {
-  image: HTMLImageElement;
-  width: number;
-  height: number;
+  image: HTMLImageElement
+  width: number
+  height: number
 }

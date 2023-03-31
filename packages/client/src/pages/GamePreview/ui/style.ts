@@ -7,5 +7,5 @@ export const style = {
 
   content: { flexGrow: 1, p: 3 },
 
-  container: {width: '100%', height: '400px' }
+  container: { width: '100%', height: '400px' },
 }

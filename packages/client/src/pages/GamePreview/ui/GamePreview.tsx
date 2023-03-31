@@ -9,9 +9,7 @@ import { Canvas } from '@/shared/ui/Canvas/Canvas'
 const GamePreview = () => {
   const canvas = useRef<HTMLCanvasElement>(null)
   const container = useRef<HTMLDivElement>(null)
-  const game = useRef<typeof DinoGame | null>()
-
-  game.current = DinoGame;
+  const game = useRef<typeof DinoGame | null>(DinoGame)
 
   const onEnd = useCallback((score: number) => {
     console.log(score)
@@ -48,13 +46,10 @@ const GamePreview = () => {
       >
         <Toolbar />
       </Drawer>
-    
+
       <Box component="main" sx={style.content}>
         <Toolbar />
-        <Canvas 
-          canvas={canvas}
-          container={container}
-        />
+        <Canvas canvas={canvas} container={container} />
       </Box>
     </Box>
   )

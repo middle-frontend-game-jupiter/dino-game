@@ -6,10 +6,7 @@ export class Score extends GameEntity {
 
   private scaleRatio: number
 
-  constructor(
-    ctx: CanvasRenderingContext2D, 
-    scaleRatio: number
-  ) {
+  constructor(ctx: CanvasRenderingContext2D, scaleRatio: number) {
     super({ ctx, width: 0, height: 0 })
     this.scaleRatio = scaleRatio
   }
@@ -19,9 +16,9 @@ export class Score extends GameEntity {
   }
 
   public setHighScore() {
-    const highScore = Number(localStorage.getItem(SCORE_STORAGE_KEY));
+    const highScore = Number(localStorage.getItem(SCORE_STORAGE_KEY))
     if (this.score > highScore) {
-      localStorage.setItem(SCORE_STORAGE_KEY, Math.floor(this.score).toString());
+      localStorage.setItem(SCORE_STORAGE_KEY, Math.floor(this.score).toString())
     }
   }
 
@@ -34,14 +31,14 @@ export class Score extends GameEntity {
   }
 
   public draw() {
-    const highScore = Number(localStorage.getItem(SCORE_STORAGE_KEY));
+    const highScore = Number(localStorage.getItem(SCORE_STORAGE_KEY))
 
     const y = 20 * this.scaleRatio
 
     const fontSize = 20 * this.scaleRatio
     this.ctx.font = `${fontSize}px serif`
-    this.ctx.fillStyle = "#525250"
-    
+    this.ctx.fillStyle = '#525250'
+
     const scoreX = this.canvas.width - 75 * this.scaleRatio
     const highScoreX = scoreX - 125 * this.scaleRatio
 

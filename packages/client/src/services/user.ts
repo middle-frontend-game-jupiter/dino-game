@@ -23,7 +23,10 @@ export const userApi = api
         }),
       }),
 
-      updatePassword: builder.mutation<UpdatePasswordResponse, UserPasswordUpdate>({
+      updatePassword: builder.mutation<
+        UpdatePasswordResponse,
+        UserPasswordUpdate
+      >({
         query: data => ({
           url: 'user/password',
           method: 'PUT',
