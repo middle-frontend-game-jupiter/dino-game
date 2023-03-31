@@ -26,6 +26,10 @@ export class Score extends GameEntity {
     this.score = 0
   }
 
+  public getScore() {
+    return this.score;
+  }
+
   public draw() {
     const highScore = Number(localStorage.getItem(SCORE_STORAGE_KEY))
 
