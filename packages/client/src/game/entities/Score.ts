@@ -15,20 +15,25 @@ export class Score extends GameEntity {
     this.score += frameTimeDelta * 0.01
   }
 
-  public setHighScore() {
-    const highScore = Number(localStorage.getItem(SCORE_STORAGE_KEY))
-    if (this.score > highScore) {
-      localStorage.setItem(SCORE_STORAGE_KEY, Math.floor(this.score).toString())
-    }
+  public setHighScore(score: number) {
+    // const highScore = Number(localStorage.getItem(SCORE_STORAGE_KEY))
+    // if (this.score > highScore) {
+    //   localStorage.setItem(SCORE_STORAGE_KEY, Math.floor(this.score).toString())
+    // }
+
+    localStorage.setItem(SCORE_STORAGE_KEY, Math.floor(score).toString())
   }
 
   public reset() {
     this.score = 0
   }
 
+  public getScore() {
+    return this.score
+  }
+
   public draw() {
     const highScore = Number(localStorage.getItem(SCORE_STORAGE_KEY))
-
     const y = 20 * this.scaleRatio
 
     const fontSize = 20 * this.scaleRatio

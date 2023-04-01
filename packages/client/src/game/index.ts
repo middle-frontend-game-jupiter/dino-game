@@ -24,10 +24,14 @@ import {
   PLAYER_WIDTH,
 } from './utils/constants'
 
-import Observer from '@/shared/lib/observer'
-import { GAME_ACTIONS } from './utils/actions'
+type DinoGameOptions = {
+  onStart: () => void;
+  onEnd: (score: number) => void;
+  container: HTMLElement | HTMLBodyElement;
+  onProcess?: () => void;
+}
 
-export class DinoGame extends Observer {
+export class DinoGame {
   canvas: HTMLCanvasElement
   previousTime: number | null
   ctx: CanvasRenderingContext2D | null
@@ -42,17 +46,26 @@ export class DinoGame extends Observer {
   score: null | Score
   cacti: null | CactiController
   scaleRatio: number
-  container: HTMLDivElement
+  container: HTMLElement | HTMLBodyElement
 
-  constructor(canvas: HTMLCanvasElement, container: HTMLDivElement) {
-    super()
+  onEnd?: (score: number) => void;
+  onStart?: () => void;
 
+  constructor(canvas: HTMLCanvasElement, {
+    container = document.body,
+    onEnd,
+    onStart
+  }: DinoGameOptions) {
     this.canvas = canvas
     this.previousTime = null
 
     this.container = container
 
     this.scaleRatio = getScaleRatio(container)
+
+
+    this.onEnd = onEnd;
+    this.onStart = onStart;
 
     this.ctx = this.canvas.getContext('2d')
 
@@ -153,9 +166,7 @@ export class DinoGame extends Observer {
     this.ctx.fillStyle = 'grey'
     const x = this.canvas.width / 4.5
     const y = this.canvas.height / 2
-    this.ctx.fillText('GAME OVER', x, y)
-
-    this.emit(GAME_ACTIONS.GAME_OVER)
+    this.ctx.fillText("GAME OVER", x, y)
   }
 
   start() {
@@ -207,6 +218,7 @@ export class DinoGame extends Observer {
       this.setupGameReset()
     }
 
+  
     this.cacti.draw()
     this.player.draw()
     this.ground.draw()
@@ -214,6 +226,10 @@ export class DinoGame extends Observer {
 
     if (this.gameOver) {
       this.showGameOver()
+      
+      this.onEnd && this.onEnd(this.score.getScore())
+
+      return;
     }
 
     if (this.waitingToStart) {
@@ -231,8 +247,6 @@ export class DinoGame extends Observer {
     this.gameObjectReset()
 
     this.gameSpeed = GAME_SPEED_START
-
-    this.emit(GAME_ACTIONS.GAME_RESET)
   }
 
   setupGameReset() {
@@ -252,7 +266,8 @@ export class DinoGame extends Observer {
     this.cacti && this.cacti.reset()
   }
 
-  static execute(canvas: HTMLCanvasElement, container: HTMLDivElement) {
-    return new DinoGame(canvas, container)
+
+  static execute(canvas: HTMLCanvasElement, options: DinoGameOptions) {
+    return new DinoGame(canvas, options)
   }
 }
