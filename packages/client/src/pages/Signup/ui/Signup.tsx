@@ -22,68 +22,70 @@ const Signup: FC = () => {
   )
 
   return (
-    <Form
-      subscription={{ submitting: true }}
-      onSubmit={onSubmit}
-      render={({ handleSubmit, submitting }) => {
-        return (
-          <form onSubmit={handleSubmit}>
-            <Grid container sx={styles.root}>
-              <Field
-                component={TextFieldForm}
-                name="login"
-                size="medium"
-                label="Login"
-              />
-              <Field
-                component={TextFieldForm}
-                name="password"
-                size="medium"
-                label="Password"
-              />
-              <Field
-                component={TextFieldForm}
-                name="first_name"
-                size="medium"
-                label="First name"
-              />
-              <Field
-                component={TextFieldForm}
-                name="second_name"
-                size="medium"
-                label="Second name"
-              />
-              <Field
-                component={TextFieldForm}
-                name="email"
-                size="medium"
-                label="Email"
-              />
-              <Field
-                component={TextFieldForm}
-                name="phone"
-                size="medium"
-                label="Phone"
-              />
-              <LoadingButton
-                variant="contained"
-                disabled={submitting}
-                loading={isLoading}
-                type="submit">
-                sign up
-              </LoadingButton>
+    <Grid container justifyContent={'center'} alignItems={'center'}>
+      <Form
+        subscription={{ submitting: true }}
+        onSubmit={onSubmit}
+        render={({ handleSubmit, submitting }) => {
+          return (
+            <form onSubmit={handleSubmit}>
+              <Grid container sx={styles.root}>
+                <Field
+                  component={TextFieldForm}
+                  name="login"
+                  size="medium"
+                  label="Login"
+                />
+                <Field
+                  component={TextFieldForm}
+                  name="password"
+                  size="medium"
+                  label="Password"
+                />
+                <Field
+                  component={TextFieldForm}
+                  name="first_name"
+                  size="medium"
+                  label="First name"
+                />
+                <Field
+                  component={TextFieldForm}
+                  name="second_name"
+                  size="medium"
+                  label="Second name"
+                />
+                <Field
+                  component={TextFieldForm}
+                  name="email"
+                  size="medium"
+                  label="Email"
+                />
+                <Field
+                  component={TextFieldForm}
+                  name="phone"
+                  size="medium"
+                  label="Phone"
+                />
+                <LoadingButton
+                  variant="contained"
+                  disabled={submitting}
+                  loading={isLoading}
+                  type="submit">
+                  sign up
+                </LoadingButton>
 
-              <Grid container width="auto" alignItems="center" gap={1}>
-                <Typography variant="body2">
-                  Already have an account?
-                </Typography>
-                <AppLink to={RoutePath.auth}>Log in</AppLink>
+                <Grid container width="auto" alignItems="center" gap={1}>
+                  <Typography variant="body2">
+                    Already have an account?
+                  </Typography>
+                  <AppLink to={RoutePath.auth}>Log in</AppLink>
+                </Grid>
               </Grid>
-            </Grid>
-          </form>
-        )
-      }}
-    />
+            </form>
+          )
+        }}
+      />
+    </Grid>
   )
 }
 

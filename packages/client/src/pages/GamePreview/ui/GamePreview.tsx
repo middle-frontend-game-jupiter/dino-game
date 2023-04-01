@@ -1,54 +1,71 @@
-import React, { useEffect, useLayoutEffect, useRef, useState } from 'react'
-
-import { DinoGame, GAME_ACTIONS } from '@/game'
-import { Box } from '@mui/system'
-import { AppBar, Drawer, Toolbar, Typography } from '@mui/material'
-import { UserViewer } from '@/entities/auth'
-import { style } from './style'
+import React, { useCallback, useEffect, useRef } from 'react'
+import { DinoGame } from '@/game'
+import useStyles from './styles'
 import { Canvas } from '@/shared/ui/Canvas/Canvas'
+import Grid from '@mui/material/Grid'
+import { useAddLeaderboardMutation } from '@/services/leaderboard'
+import selector from './selector'
+import { useAppSelector } from '@/app/hooks/redux'
+import {
+  RATING_FIELD_NAME,
+  SCORE_STORAGE_KEY,
+  TEAM_NAME,
+} from '@/game/utils/constants'
 
-const GamePreview = () => {
+const GamePreview: React.FC = () => {
+  const styles = useStyles()
+
   const canvas = useRef<HTMLCanvasElement>(null)
   const container = useRef<HTMLDivElement>(null)
+  const game = useRef<typeof DinoGame | null>(DinoGame)
 
-  const [gameOver, setGameOver] = useState<boolean>(false)
+  const [addLeaderboardQuery] = useAddLeaderboardMutation()
 
-  useLayoutEffect(() => {
-    if (canvas.current && container.current) {
-      DinoGame.execute(canvas.current, container.current)
-        .start()
-        .on(GAME_ACTIONS.GAME_OVER, () => setGameOver(true))
-        .on(GAME_ACTIONS.GAME_RESET, () => setGameOver(false))
-    }
+  const { user, score } = useAppSelector(selector)
+
+  const onEnd = useCallback((score: number) => {
+    console.log(score)
+    addLeaderboardQuery({
+      data: {
+        dino_score: score,
+        user: user?.login,
+      },
+      teamName: TEAM_NAME,
+      ratingFieldName: RATING_FIELD_NAME,
+    })
+  }, [])
+
+  const onStart = useCallback(() => {
+    console.log('start')
   }, [])
 
   useEffect(() => {
-    if (gameOver) {
-      console.log('CALL ENTTITY API LEADERBOARD FROR VIEW LIST IN DRAWER')
+    let instance = undefined as DinoGame | undefined
+
+    localStorage.setItem(SCORE_STORAGE_KEY, Math.floor(score).toString())
+
+    if (container.current && canvas.current) {
+      instance = game.current?.execute(canvas.current, {
+        container: container.current,
+        onEnd,
+        onStart,
+      })
+
+      instance?.start()
     }
-  }, [gameOver])
+
+    return () => {
+      game.current = null
+      instance = undefined
+    }
+  }, [])
 
   return (
-    <Box sx={{ display: 'flex' }}>
-      <AppBar position="fixed" sx={style.appbar}>
-        <Toolbar sx={style.toolbar}>
-          <Typography variant="h6" noWrap component="div">
-            Dino
-          </Typography>
-
-          <UserViewer />
-        </Toolbar>
-      </AppBar>
-
-      <Drawer variant="permanent" sx={style.drawer}>
-        <Toolbar />
-      </Drawer>
-
-      <Box component="main" sx={style.content}>
-        <Toolbar />
+    <Grid container component="main">
+      <Grid container sx={styles.content}>
         <Canvas canvas={canvas} container={container} />
-      </Box>
-    </Box>
+      </Grid>
+    </Grid>
   )
 }
 

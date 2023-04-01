@@ -1,9 +1,10 @@
-import React, { FC } from 'react'
+import React, { ChangeEvent, FC, useState } from 'react'
 import useStyles from './styles'
 import Grid from '@mui/material/Grid'
 import Avatar from '@mui/material/Avatar'
 import Typography from '@mui/material/Typography'
-import { Container, Divider } from '@mui/material'
+import Container from '@mui/material/Container'
+import Divider from '@mui/material/Divider'
 import { useAppSelector } from '@/app/hooks/redux'
 import { getProfileSelector } from '@/entities/auth/model/selectors'
 import { RoutePath } from '@/shared/config'
@@ -33,13 +34,18 @@ const Item: FC<IItem> = props => {
 }
 
 const Profile: FC = () => {
-  const [isModalOpen, setIsModalOpen] = React.useState<boolean>(false)
   const styles = useStyles()
   const navigate = useNavigate()
+
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
+
   const { infoList, user } = useAppSelector(getProfileSelector)
+
   const [updateAvatar] = useUpdateAvatarMutation()
-  const handleAvatarChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
+
+  const handleAvatarChange = async (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0]
+
     if (file) {
       const formData = new FormData()
       formData.append('avatar', file)
@@ -56,7 +62,11 @@ const Profile: FC = () => {
         hidden
       />
       <label htmlFor="avatar-input">
-        <Avatar sx={styles.avatar} alt="avatar" src={BASE_RESOURCES_URL + user?.avatar} />
+        <Avatar
+          sx={styles.avatar}
+          alt="avatar"
+          src={BASE_RESOURCES_URL + user?.avatar}
+        />
       </label>
       <Typography variant="body1">{user?.displayName}</Typography>
       {infoList?.map(item => (
