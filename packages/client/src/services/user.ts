@@ -1,9 +1,14 @@
 import {
   UpdatePasswordResponse,
+  UserEntity,
   UserPasswordUpdate,
   UserProfileAvatar,
+  UserServerEntity
 } from '@/shared/types/User'
 import { api } from '@/services/api'
+import { UserMapper } from '@/mappers/User'
+import { ApiError } from '@/shared/types/Errors'
+
 
 export const userApi = api
   .enhanceEndpoints({ addTagTypes: ['userApi'] })
@@ -29,11 +34,20 @@ export const userApi = api
           body: data,
         }),
       }),
+
+      updateProfile: builder.mutation<UserServerEntity | ApiError, UserEntity>({
+        query: data => ({
+          url: 'user/profile',
+          method: 'PUT',
+          withCredentials: true,
+          body: UserMapper.toApi(data),
+        })
+      })
     }),
   })
 
-export const { useUpdateAvatarMutation, useUpdatePasswordMutation } = userApi
+export const { useUpdateAvatarMutation, useUpdatePasswordMutation, useUpdateProfileMutation } = userApi
 
 export const {
-  endpoints: { updateAvatar, updatePassword },
+  endpoints: { updateAvatar, updatePassword, updateProfile },
 } = userApi
