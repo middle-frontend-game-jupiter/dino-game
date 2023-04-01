@@ -1,9 +1,13 @@
-import { convertToCamelCase } from '@/shared/lib/object-utils'
+import { convertToCamelCase, convertToSnakeCase } from '@/shared/lib/objectUtils'
 import { UserEntity, UserServerEntity } from '@/shared/types/User'
 
 export class UserMapper {
   static toView(user: UserServerEntity): UserEntity {
     return convertToCamelCase(user)
+  }
+
+  static toApi(user: UserEntity): UserServerEntity {
+    return convertToSnakeCase(user)
   }
 }
 
