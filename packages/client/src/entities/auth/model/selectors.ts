@@ -1,5 +1,5 @@
 import { createSelector } from '@reduxjs/toolkit'
-import type { RootState } from '@/app/providers/Store/config/store'
+import { RootState } from '@/app/providers/store/config/store'
 import { getUserInfoList } from '@/mappers/User'
 
 export const authErrorReasonSelector = createSelector(

@@ -7,16 +7,18 @@ import { GamePreview } from '@/pages/GamePreview'
 import { AuthGuard } from '@/entities/auth'
 import { APP_ROUTES, RoutePath } from '@/shared/config'
 import { ProfilePage } from '@/pages/Profile'
-import { UserSettingsPage } from '@/pages/Settings';
+import { UserSettingsPage } from '@/pages/Settings'
 import { ForumList } from '@/pages/Forum/ui/Forum'
 import { ForumMessages } from '@/pages/ForumMessages/ui/ForumMessages'
+import { LeaderboardPage } from '@/pages/Leaderboard'
+import { LeaderboardGuard } from '@/entities/leaderboard/ui'
 
 export const routeConfig: Record<APP_ROUTES, RouteProps> = {
   [APP_ROUTES.MAIN]: {
     path: RoutePath.main,
     element: (
       <AuthGuard>
-        <GamePreview />
+        <div>Landing</div>
       </AuthGuard>
     ),
   },
@@ -31,17 +33,21 @@ export const routeConfig: Record<APP_ROUTES, RouteProps> = {
   [APP_ROUTES.GAME]: {
     path: RoutePath.game,
     element: (
-      <AuthGuard>
-        <div>Game Page</div>
-      </AuthGuard>
+      <LeaderboardGuard>
+        <AuthGuard>
+          <GamePreview />
+        </AuthGuard>
+      </LeaderboardGuard>
     ),
   },
   [APP_ROUTES.LEADERBOARD]: {
     path: RoutePath.leaderboard,
     element: (
-      <AuthGuard>
-        <div>LeaderBoard Page</div>
-      </AuthGuard>
+      <LeaderboardGuard>
+        <AuthGuard>
+          <LeaderboardPage />
+        </AuthGuard>
+      </LeaderboardGuard>
     ),
   },
   [APP_ROUTES.FORUM]: {

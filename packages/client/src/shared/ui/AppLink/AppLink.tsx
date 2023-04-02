@@ -10,7 +10,7 @@ export const AppLink: FC<IProps> = props => {
   const styles = useStyles()
 
   return (
-    <Link to={to} {...othersProps} style={styles.root}>
+    <Link to={to} style={styles.root} {...othersProps}>
       {children}
     </Link>
   )

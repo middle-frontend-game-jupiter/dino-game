@@ -24,7 +24,7 @@ const Auth: FC = () => {
   )
 
   const isAuth = useAppSelector(authModel.selectors.isAuthUserSelector)
-  
+
   const [authQuery, { isLoading, isError }] = useSignInMutation()
 
   const onSubmit = useCallback((form: UserSignIn) => authQuery(form), [])
@@ -34,53 +34,54 @@ const Auth: FC = () => {
   }
 
   return (
-    <Form
-      subscription={{ submitting: true }}
-      onSubmit={onSubmit}
-      validate={validate}
-      render={({ handleSubmit, submitting }) => {
-        return (
-          <form onSubmit={handleSubmit}>
-            {isError && errorReason && (
-              <Alert severity="error">
-                <AlertTitle>{errorReason}</AlertTitle>
-              </Alert>
-            )}
-            <Grid container sx={styles.root}>
-              <Grid item width="180px">
-                <Field
-                  component={TextFieldForm}
-                  name="login"
-                  size="medium"
-                  label="Login"
-                />
+    <Grid container justifyContent={'center'} alignItems={'center'}>
+      <Form
+        subscription={{ submitting: true }}
+        onSubmit={onSubmit}
+        validate={validate}
+        render={({ handleSubmit, submitting }) => {
+          return (
+            <form onSubmit={handleSubmit}>
+              {isError && errorReason && (
+                <Alert severity="error">
+                  <AlertTitle>{errorReason}</AlertTitle>
+                </Alert>
+              )}
+              <Grid container sx={styles.root}>
+                <Grid item width="180px">
+                  <Field
+                    component={TextFieldForm}
+                    name="login"
+                    size="medium"
+                    label="Login"
+                  />
+                </Grid>
+                <Grid item width="180px">
+                  <Field
+                    component={TextFieldForm}
+                    disabled={submitting}
+                    name="password"
+                    size="medium"
+                    label="Password"
+                  />
+                </Grid>
+                <LoadingButton
+                  variant="contained"
+                  disabled={isLoading}
+                  loading={isLoading}
+                  type="submit"
+                >  Log in
+                </LoadingButton>
+                <Grid container width="auto" alignItems="center" gap={1}>
+                  <Typography variant="body2">No account yet?</Typography>
+                  <AppLink to={RoutePath.signup}>Signup</AppLink>
+                </Grid>
               </Grid>
-              <Grid item width="180px">
-                <Field
-                  component={TextFieldForm}
-                  disabled={submitting}
-                  name="password"
-                  size="medium"
-                  label="Password"
-                />
-              </Grid>
-              <LoadingButton
-                variant="contained"
-                disabled={isLoading}
-                loading={isLoading}
-                type="submit"
-              >
-                Log in
-              </LoadingButton>
-              <Grid container width="auto" alignItems="center" gap={1}>
-                <Typography variant="body2">No account yet?</Typography>
-                <AppLink to={RoutePath.signup}>Signup</AppLink>
-              </Grid>
-            </Grid>
-          </form>
-        )
-      }}
-    />
+            </form>
+          )
+        }}
+      />
+    </Grid>
   )
 }
 

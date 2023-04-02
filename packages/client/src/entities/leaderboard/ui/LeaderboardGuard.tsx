@@ -1,27 +1,28 @@
 import React, { useEffect } from 'react'
-import { useMeMutation } from '@/services/auth'
 import { Navigate } from 'react-router'
 import { CircularProgress } from '@mui/material'
-import { useAppSelector } from '@/app/hooks/redux'
-import { isAuthUserSelector } from '../model/selectors'
 import { RoutePath } from '@/shared/config'
+import { useGetLeaderboardsMutation } from '@/services/leaderboard'
+import { RATING_FIELD_NAME, TEAM_NAME } from '@/game/utils/constants'
 
 interface OwnProps {
   children: JSX.Element
 }
 
-export const AuthGuard = ({
+export const LeaderboardGuard = ({
   children,
 }: OwnProps): JSX.Element | React.ReactElement => {
-  const [userQuery, { isError, isLoading }] = useMeMutation()
-
-  const isAuth = useAppSelector(isAuthUserSelector)
+  const [leaderboardQuery, { isError, isLoading }] =
+    useGetLeaderboardsMutation()
 
   useEffect(() => {
-    if (!isAuth) {
-      userQuery({})
-    }
-  }, [isAuth])
+    leaderboardQuery({
+      ratingFieldName: RATING_FIELD_NAME,
+      teamName: TEAM_NAME,
+      cursor: 0,
+      limit: 100,
+    })
+  }, [])
 
   if (isLoading) {
     return <CircularProgress />

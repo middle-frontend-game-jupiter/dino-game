@@ -15,6 +15,8 @@ export const GROUND_HEIGHT = 24
 export const GROUND_AND_CACTUS_SPEED = 0.5
 export const GAME_SPEED_INCREMENT = 0.00001
 export const SCORE_STORAGE_KEY = 'high-score'
+export const RATING_FIELD_NAME = 'dino_score'
+export const TEAM_NAME = 'jupiter'
 
 export const CACTI_CONFIG = [
   { width: 48 / 1.5, height: 100 / ENTITY_GAME_THRESHOLD, image: cactusVerOne },

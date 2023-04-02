@@ -7,8 +7,8 @@ export default (): Record<string, SxProps<Theme>> => ({
     alignItems: 'center',
     flexDirection: 'column',
     rowGap: 2,
-    height: '100vh',
     width: '50%',
+    marginTop: 10,
   },
 
   buttonContainer: {
@@ -17,6 +17,6 @@ export default (): Record<string, SxProps<Theme>> => ({
   },
 
   avatar: {
-    cursor: "pointer"
-  }
+    cursor: 'pointer',
+  },
 })
