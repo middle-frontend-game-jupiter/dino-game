@@ -2,8 +2,6 @@ import React, { useEffect } from 'react'
 import { Navigate } from 'react-router'
 import { CircularProgress } from '@mui/material'
 import { RoutePath } from '@/shared/config'
-import { useAppSelector } from '@/app/hooks/redux'
-import { isAuthUserSelector } from '@/entities/auth/model/selectors'
 import { useGetLeaderboardsMutation } from '@/services/leaderboard'
 import { RATING_FIELD_NAME, TEAM_NAME } from '@/game/utils/constants'
 
@@ -17,18 +15,14 @@ export const LeaderboardGuard = ({
   const [leaderboardQuery, { isError, isLoading }] =
     useGetLeaderboardsMutation()
 
-  const isAuth = useAppSelector(isAuthUserSelector)
-
   useEffect(() => {
-    if (!isAuth) {
-      leaderboardQuery({
-        ratingFieldName: RATING_FIELD_NAME,
-        teamName: TEAM_NAME,
-        cursor: 0,
-        limit: 100,
-      })
-    }
-  }, [isAuth])
+    leaderboardQuery({
+      ratingFieldName: RATING_FIELD_NAME,
+      teamName: TEAM_NAME,
+      cursor: 0,
+      limit: 100,
+    })
+  }, [])
 
   if (isLoading) {
     return <CircularProgress />
