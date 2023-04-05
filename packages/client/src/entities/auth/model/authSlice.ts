@@ -29,7 +29,7 @@ const authSlice = createSlice({
       .addMatcher(signIn.matchRejected, (state, { payload }) => {
         const { reason } = payload?.data as NonAutorizedResponse
 
-        if (payload?.data === "OK") {
+        if (payload?.data === 'OK') {
           state.auth = true
         } else {
           state.auth = false

@@ -7,7 +7,16 @@ export default (): Record<string, SxProps<Theme>> => ({
     alignItems: 'center',
     flexDirection: 'column',
     rowGap: 2,
-    height: '100vh',
     width: '50%',
+    marginTop: 10,
+  },
+
+  buttonContainer: {
+    display: 'flex',
+    gap: '1rem',
+  },
+
+  avatar: {
+    cursor: 'pointer',
   },
 })

@@ -4,6 +4,7 @@ import { Navigate } from 'react-router'
 import { CircularProgress } from '@mui/material'
 import { useAppSelector } from '@/app/hooks/redux'
 import { isAuthUserSelector } from '../model/selectors'
+import { RoutePath } from '@/shared/config'
 
 interface OwnProps {
   children: JSX.Element
@@ -27,7 +28,7 @@ export const AuthGuard = ({
   }
 
   if (isError) {
-    return <Navigate to="/auth" replace={true} />
+    return <Navigate to={RoutePath.auth} replace={true} />
   }
 
   return children
