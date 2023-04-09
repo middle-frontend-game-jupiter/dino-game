@@ -17,6 +17,11 @@ export const getUserSelector = createSelector(
   ({ auth }) => auth.user
 )
 
+export const getServiceIdSelector = createSelector(
+  (state: RootState) => state,
+  ({ auth }) => auth.serviceId
+)
+
 export const getInfoListSelector = createSelector([getUserSelector], user => {
   return getUserInfoList(user)
 })

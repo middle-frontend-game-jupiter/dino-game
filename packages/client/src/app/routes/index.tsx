@@ -12,15 +12,12 @@ import { ForumList } from '@/pages/Forum/ui/Forum'
 import { ForumMessages } from '@/pages/ForumMessages/ui/ForumMessages'
 import { LeaderboardPage } from '@/pages/Leaderboard'
 import { LeaderboardGuard } from '@/entities/leaderboard/ui'
+import Landing from '@/pages/Landing/ui/Landing'
 
 export const routeConfig: Record<APP_ROUTES, RouteProps> = {
   [APP_ROUTES.MAIN]: {
     path: RoutePath.main,
-    element: (
-      <AuthGuard>
-        <div>Landing</div>
-      </AuthGuard>
-    ),
+    element: <Landing />,
   },
   [APP_ROUTES.AUTH]: {
     path: RoutePath.auth,

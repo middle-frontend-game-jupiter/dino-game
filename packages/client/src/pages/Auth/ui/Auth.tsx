@@ -9,28 +9,42 @@ import { Field } from 'react-final-form'
 import { AppLink } from '@/shared/ui/AppLink/AppLink'
 import { RoutePath } from '@/shared/config'
 import { TextFieldForm } from '@/shared/hocs/formHocs'
-import { useSignInMutation } from '@/services/auth'
+import {
+  REDIRECT_URI,
+  useGetServiceIdMutation,
+  useSignInMutation,
+} from '@/services/auth'
 import { LoadingButton } from '@mui/lab'
 import { UserSignIn } from '@/shared/types/User'
 import { useAppSelector } from '@/app/hooks/redux'
-import { authModel } from '@/entities/auth'
 import validate from './validate'
 import { Navigate } from 'react-router'
+import Button from '@mui/material/Button'
+import selector from './selector'
 
 const Auth: FC = () => {
   const styles = useStyles()
-  const errorReason = useAppSelector(
-    authModel.selectors.authErrorReasonSelector
-  )
 
-  const isAuth = useAppSelector(authModel.selectors.isAuthUserSelector)
+  const { isAuth, errorReason } = useAppSelector(selector)
 
   const [authQuery, { isLoading, isError }] = useSignInMutation()
+
+  const [getServiceId] = useGetServiceIdMutation()
 
   const onSubmit = useCallback((form: UserSignIn) => authQuery(form), [])
 
   if (isAuth) {
     return <Navigate to="/" replace={true} />
+  }
+
+  const handleLoginClick = async () => {
+    try {
+      const { service_id } = await getServiceId({}).unwrap()
+      const url = `https://oauth.yandex.ru/authorize?response_type=code&client_id=${service_id}&redirect_uri=${REDIRECT_URI}`
+      document.location.href = url
+    } catch (e) {
+      console.log(e)
+    }
   }
 
   return (
@@ -69,9 +83,10 @@ const Auth: FC = () => {
                   variant="contained"
                   disabled={isLoading}
                   loading={isLoading}
-                  type="submit"
-                >  Log in
+                  type="submit">
+                  Log in
                 </LoadingButton>
+                <Button onClick={handleLoginClick}>Log in with Yandex</Button>
                 <Grid container width="auto" alignItems="center" gap={1}>
                   <Typography variant="body2">No account yet?</Typography>
                   <AppLink to={RoutePath.signup}>Signup</AppLink>

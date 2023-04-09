@@ -5,7 +5,7 @@ import { useUpdateProfileMutation } from '@/services/user'
 import { UserEntity } from '@/shared/types/User'
 import { UserContainer } from './UserContainer'
 import { UserSettingsForm } from './UserSettingsForm'
-import { useMeMutation } from '@/services/auth'
+import { useGetUserMutation } from '@/services/auth'
 import { ApiError } from '@/shared/types/Errors'
 
 const UserSettings: FC = () => {
@@ -14,7 +14,7 @@ const UserSettings: FC = () => {
   const [reason, setErrorReason] = useState<string | null>(null)
 
   const [profileQuery, { isError, isLoading }] = useUpdateProfileMutation()
-  const [meQuery] = useMeMutation()
+  const [getUser] = useGetUserMutation()
 
   const onChangeUser = useCallback(
     async (payload: Omit<UserEntity, 'avatar' | 'id'>) => {
@@ -22,7 +22,7 @@ const UserSettings: FC = () => {
         setErrorReason(null)
 
         await profileQuery({ ...user, ...payload } as UserEntity).unwrap()
-        await meQuery({}).unwrap()
+        await getUser({}).unwrap()
       } catch (error) {
         setErrorReason((error as ApiError).data.reason)
       }
