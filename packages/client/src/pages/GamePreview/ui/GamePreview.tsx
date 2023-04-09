@@ -54,7 +54,39 @@ const GamePreview: React.FC = () => {
       instance?.start()
     }
 
+    const handleFullScreenChange = () => {
+      if (document.fullscreenElement) {
+        // если пользователь включил полноэкранный режим
+        console.log('Fullscreen mode enabled');
+      } else {
+        // если пользователь выключил полноэкранный режим
+        console.log('Fullscreen mode disabled');
+      }
+    };
+
+    const handleDoubleClick = () => {
+      if (container.current) {
+        container.current.requestFullscreen();
+      }
+    };
+
+    const handleEscPress = (event: KeyboardEvent) => {
+      if (event.key === 'Escape' && document.fullscreenElement) {
+        document.exitFullscreen();
+      }
+    };
+
+    container.current?.addEventListener('dblclick', handleDoubleClick);
+    document.addEventListener('fullscreenchange', handleFullScreenChange);
+    document.addEventListener('keydown', handleEscPress);
+
     return () => {
+      container.current?.removeEventListener('dblclick', handleDoubleClick);
+      document.removeEventListener(
+        'fullscreenchange',
+        handleFullScreenChange
+      );
+      document.removeEventListener('keydown', handleEscPress);
       game.current = null
       instance = undefined
     }
