@@ -7,7 +7,7 @@ import {
 } from '@/shared/types/User'
 import { api } from './api'
 
-export const REDIRECT_URI = 'http://localhost:3000/'
+export const REDIRECT_URI = `${window.location.origin}/`
 
 export const authApi = api
   .enhanceEndpoints({ addTagTypes: ['authApi'] })
