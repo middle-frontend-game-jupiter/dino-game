@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { useMeMutation } from '@/services/auth'
+import { useGetUserMutation } from '@/services/auth'
 import { Navigate } from 'react-router'
 import { CircularProgress } from '@mui/material'
 import { useAppSelector } from '@/app/hooks/redux'
@@ -13,13 +13,13 @@ interface OwnProps {
 export const AuthGuard = ({
   children,
 }: OwnProps): JSX.Element | React.ReactElement => {
-  const [userQuery, { isError, isLoading }] = useMeMutation()
+  const [getUser, { isError, isLoading }] = useGetUserMutation()
 
   const isAuth = useAppSelector(isAuthUserSelector)
 
   useEffect(() => {
     if (!isAuth) {
-      userQuery({})
+      getUser({})
     }
   }, [isAuth])
 

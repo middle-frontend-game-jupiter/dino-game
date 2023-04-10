@@ -42,3 +42,12 @@ export interface UpdatePasswordResponse {
   success: boolean
   message?: string
 }
+
+export interface IServiceId {
+  service_id: string
+}
+
+export interface IOauthYandex {
+  code: string
+  redirect_uri?: string
+}
