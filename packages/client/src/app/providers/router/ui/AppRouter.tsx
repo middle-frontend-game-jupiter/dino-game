@@ -3,7 +3,7 @@ import { Route, Routes } from 'react-router-dom'
 import { routeConfig } from '@/app/routes'
 import Grid from '@mui/material/Grid'
 
-const AppRouter: FC = () => (
+const AppRoutes: FC = () => (
   <Routes>
     {Object.values(routeConfig).map(({ path, element }) => (
       <Route
@@ -15,4 +15,4 @@ const AppRouter: FC = () => (
   </Routes>
 )
 
-export default AppRouter
+export default AppRoutes

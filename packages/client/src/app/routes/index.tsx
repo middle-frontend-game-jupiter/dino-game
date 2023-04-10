@@ -13,7 +13,7 @@ import { ForumMessages } from '@/pages/ForumMessages/ui/ForumMessages'
 import { LeaderboardPage } from '@/pages/Leaderboard'
 import { LeaderboardGuard } from '@/entities/leaderboard/ui'
 
-export const routeConfig: Record<APP_ROUTES, RouteProps> = {
+export const routeConfig: Record<APP_ROUTES, (RouteProps & { loader?: (args: any) => any })> = {
   [APP_ROUTES.MAIN]: {
     path: RoutePath.main,
     element: (

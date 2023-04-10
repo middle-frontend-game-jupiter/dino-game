@@ -1,13 +1,16 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { getLeaderboards } from '@/services/leaderboard'
 import { ILeaderBoardListResponse } from '@/shared/types/LiderBoard'
+import { NonAutorizedResponse } from '@/shared/types/Errors'
 
 interface LeaderboardSlice {
   leaderboardList: null | ILeaderBoardListResponse[]
+  error: null | NonAutorizedResponse
 }
 
 const initialState: LeaderboardSlice = {
   leaderboardList: null,
+  error: null,
 }
 
 const leaderboardSlice = createSlice({
