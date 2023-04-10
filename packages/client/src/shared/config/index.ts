@@ -7,7 +7,6 @@ export enum APP_ROUTES {
   FORUM = 'forum',
   PROFILE = 'profile',
   NOT_FOUND = 'not_found',
-  // ERROR500 = 'error500',
   SETTINGS = 'settings',
   FORUM_MESSAGES = 'forum_messages',
 }
@@ -21,7 +20,6 @@ export const RoutePath: Record<APP_ROUTES, string> = {
   [APP_ROUTES.FORUM]: '/forum',
   [APP_ROUTES.PROFILE]: '/profile',
   [APP_ROUTES.NOT_FOUND]: '*',
-  // [APP_ROUTES.ERROR500]: '/500',
   [APP_ROUTES.SETTINGS]: '/settings',
   [APP_ROUTES.FORUM_MESSAGES]: '/forum_messages',
 }
