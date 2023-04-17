@@ -4,8 +4,9 @@ import App from '@/app/App'
 import { createStore } from './app/providers/store/config/store'
 import { UserMapper } from './mappers/User'
 
+// @ts-expect-error
 const initialState = window.initialState
-
+// @ts-expect-error
 delete window.initialState
 
 const initialStateParce = JSON.parse(initialState) as InitialState
