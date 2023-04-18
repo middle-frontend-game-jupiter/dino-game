@@ -17,7 +17,6 @@ export default (): Record<string, SxProps<Theme>> => ({
     marginTop: 20,
   },
   listItem: {
-    border: '1px solid blue',
     marginBottom: '10px',
   },
   form: {

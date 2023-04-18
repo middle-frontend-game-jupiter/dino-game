@@ -8,11 +8,11 @@ import { AuthGuard } from '@/entities/auth'
 import { APP_ROUTES, RoutePath } from '@/shared/config'
 import { ProfilePage } from '@/pages/Profile'
 import { UserSettingsPage } from '@/pages/Settings'
-import { ForumList } from '@/pages/Forum/ui/Forum'
 import { ForumMessages } from '@/pages/ForumMessages/ui/ForumMessages'
 import { LeaderboardPage } from '@/pages/Leaderboard'
 import { LeaderboardGuard } from '@/entities/leaderboard/ui'
 import Landing from '@/pages/Landing/ui/Landing'
+import { ForumPage } from '@/pages/Forum'
 
 export const routeConfig: Record<APP_ROUTES, RouteProps> = {
   [APP_ROUTES.MAIN]: {
@@ -51,7 +51,7 @@ export const routeConfig: Record<APP_ROUTES, RouteProps> = {
     path: RoutePath.forum,
     element: (
       <AuthGuard>
-        <ForumList />
+        <ForumPage />
       </AuthGuard>
     ),
   },

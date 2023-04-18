@@ -1,8 +1,7 @@
 import { reducer } from './leaderboardSlice'
-import { authErrorReasonSelector, getLeaderboardSelector } from './selectors'
+import { getLeaderboardSelector } from './selectors'
 
 const selectors = {
-  authErrorReasonSelector,
   getLeaderboardSelector,
 }
 

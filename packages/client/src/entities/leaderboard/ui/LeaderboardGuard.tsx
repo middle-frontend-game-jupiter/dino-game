@@ -4,6 +4,7 @@ import { CircularProgress } from '@mui/material'
 import { RoutePath } from '@/shared/config'
 import { useGetLeaderboardsMutation } from '@/services/leaderboard'
 import { RATING_FIELD_NAME, TEAM_NAME } from '@/game/utils/constants'
+import Grid from '@mui/material/Grid'
 
 interface OwnProps {
   children: JSX.Element
@@ -25,7 +26,11 @@ export const LeaderboardGuard = ({
   }, [])
 
   if (isLoading) {
-    return <CircularProgress />
+    return (
+      <Grid container justifyContent={'center'} alignItems={'center'}>
+        <CircularProgress />
+      </Grid>
+    )
   }
 
   if (isError) {
