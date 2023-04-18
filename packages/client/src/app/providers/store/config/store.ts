@@ -2,9 +2,13 @@ import { configureStore } from '@reduxjs/toolkit'
 import { authModel } from '@/entities/auth'
 import { leaderboardModel } from '@/entities/leaderboard'
 import { api } from '@/services/api'
+import { UserEntity } from '@/shared/types/User'
 
 export const createStore = (
-  user?: any,
+  auth = {} as {
+    user: UserEntity,
+    auth: boolean;
+  },
 ) => {
   return configureStore({
     reducer: {
@@ -14,12 +18,8 @@ export const createStore = (
     },
     preloadedState: {
       auth: { 
-        ...user
-      },
-
-      leaderboard: {
-        leaderboardList: [],
-        error: null 
+        ...auth,
+        error: null,
       },
     },
     middleware: getDefaultMiddleware =>

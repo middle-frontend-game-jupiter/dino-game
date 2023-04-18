@@ -65,7 +65,7 @@ const Profile: FC = () => {
         <Avatar
           sx={styles.avatar}
           alt="avatar"
-          src={`BASE_RESOURCES_URL/${user?.avatar}`}
+          src={`${BASE_RESOURCES_URL}/${user?.avatar}`}
         />
       </label>
       <Typography variant="body1">{user?.displayName}</Typography>

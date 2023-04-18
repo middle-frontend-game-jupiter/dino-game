@@ -13,15 +13,15 @@ const errorPassword =
 export default function validate(values: UserSignIn) {
   const errors: Partial<Record<keyof UserSignIn, string>> = {}
 
-  // setRequiredFields(values, errors, [AUTH_FIELDS.LOGIN, AUTH_FIELDS.PASSWORD])
+  setRequiredFields(values, errors, [AUTH_FIELDS.LOGIN, AUTH_FIELDS.PASSWORD])
 
-  // if (!validationPatterns.login.test(values.login)) {
-  //   errors.login = errorLogin
-  // }
+  if (!validationPatterns.login.test(values.login)) {
+    errors.login = errorLogin
+  }
 
-  // if (!validationPatterns.password.test(values.password)) {
-  //   errors.password = errorPassword
-  // }
+  if (!validationPatterns.password.test(values.password)) {
+    errors.password = errorPassword
+  }
 
   return errors
 }

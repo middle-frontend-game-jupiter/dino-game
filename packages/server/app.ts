@@ -91,19 +91,15 @@ export async function startServer() {
 
       const { render } = mod;
 
-      const { user, leaderboard } = res as any;
+      const { user } = res as any;
 
       const [app] = await render(url, {
         ...user,
-        leaderboard,
       });
 
       const html = template
         .replace(`<!--ssr-outlet-->`, app)
-        .replace('<!--store-data-->', JSON.stringify({
-            user,
-            leaderboard
-        }))
+        .replace('<!--store-data-->', JSON.stringify({ user }))
 
       
       res.status(200).set({ 'Content-Type': 'text/html' }).end(html)
