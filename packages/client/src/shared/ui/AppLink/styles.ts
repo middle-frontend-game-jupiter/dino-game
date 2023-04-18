@@ -1,6 +1,8 @@
-export default () => ({
+import { MODE } from '@/app/styles/variables/global'
+
+export default (mode: MODE) => ({
   root: {
-    color: 'black',
+    color: mode === MODE.LIGHT ? 'black' : 'white',
     fontWeight: 'bold',
   },
 })

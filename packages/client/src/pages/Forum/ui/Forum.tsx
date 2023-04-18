@@ -14,6 +14,7 @@ import { Form, Field } from 'react-final-form'
 import { RoutePath } from '@/shared/config'
 import { TextFieldForm } from '@/shared/hocs/formHocs'
 import useStyles from './styles'
+import Box from '@mui/material/Box'
 
 interface Topic {
   id: number
@@ -40,34 +41,32 @@ const array: Topic[] = [
   },
 ]
 
-export const ForumList: React.FC = () => {
+const Forum: React.FC = () => {
   const styles = useStyles()
+
   const [isModalOpen, setIsModalOpen] = React.useState<boolean>(false)
 
   const handleAddForum = (values: any) => {
     console.log('Submitted values:', values)
-    setIsModalOpen(false)
+    setIsModalOpen(!isModalOpen)
   }
 
   return (
-    <Grid sx={styles.root}>
-      <Grid sx={styles.head}>
-        <Typography variant="h4" gutterBottom>
-          Forum topics list
-        </Typography>
-        <Grid sx={styles.buttonContainer}>
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={() => setIsModalOpen(true)}>
-            Create forum
-          </Button>
-        </Grid>
+    <Box sx={styles.root}>
+      <Grid container alignItems={'center'} justifyContent={'space-between'}>
+        <Typography variant="h4">Forum topics list</Typography>
+        <Button
+          variant="contained"
+          color="primary"
+          sx={styles.button}
+          onClick={handleAddForum}>
+          Create forum
+        </Button>
       </Grid>
-      <List>
+
+      <List component={Grid} container>
         {array.map(topic => (
           <ListItem
-            sx={styles.listItem}
             key={topic.id}
             button
             component={Link}
@@ -76,7 +75,7 @@ export const ForumList: React.FC = () => {
           </ListItem>
         ))}
       </List>
-      <Dialog open={isModalOpen} onClose={() => setIsModalOpen(false)}>
+      <Dialog open={isModalOpen} onClose={handleAddForum}>
         <Form
           onSubmit={handleAddForum}
           render={({ handleSubmit }) => (
@@ -109,6 +108,8 @@ export const ForumList: React.FC = () => {
           )}
         />
       </Dialog>
-    </Grid>
+    </Box>
   )
 }
+
+export default Forum

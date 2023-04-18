@@ -5,6 +5,7 @@ import { CircularProgress } from '@mui/material'
 import { useAppSelector } from '@/app/hooks/redux'
 import { isAuthUserSelector } from '../model/selectors'
 import { RoutePath } from '@/shared/config'
+import Grid from '@mui/material/Grid'
 
 interface OwnProps {
   children: JSX.Element
@@ -24,7 +25,11 @@ export const AuthGuard = ({
   }, [isAuth])
 
   if (isLoading) {
-    return <CircularProgress />
+    return (
+      <Grid container justifyContent={'center'} alignItems={'center'}>
+        <CircularProgress />
+      </Grid>
+    )
   }
 
   if (isError) {
