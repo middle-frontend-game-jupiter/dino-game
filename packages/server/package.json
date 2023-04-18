@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "build": "tsc --p ./tsconfig.prod.json",
+    "build": "rm -rf ./dist && tsc --p ./tsconfig.prod.json",
     "preview": "node ./dist/index.js",
     "dev": "cross-env NODE_ENV=development nodemon index.ts",
     "lint": "eslint .",
@@ -23,7 +23,8 @@
     "express": "^4.18.1",
     "http-proxy-middleware": "^2.0.6",
     "pg": "^8.8.0",
-    "prettier": "^2.7.1"
+    "prettier": "^2.7.1",
+    "vite": "3.0.7"
   },
   "devDependencies": {
     "@types/cors": "^2.8.12",

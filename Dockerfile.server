@@ -7,13 +7,13 @@ WORKDIR /app
 
 FROM base as builder
 
-COPY package.json yarn.lock lerna.json ./
+COPY package.json yarn.lock lerna.json node_modules ./
 RUN yarn install --frozen-lockfile
 
 COPY . .
 
 RUN yarn lerna bootstrap
-RUN rm -rf /app/packages/server/dist/ && yarn build --scope=server
+RUN yarn build --scope=server
 
 
 FROM node:$NODE_VERSION-buster-slim as production
