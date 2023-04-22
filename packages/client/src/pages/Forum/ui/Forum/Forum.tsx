@@ -15,67 +15,50 @@ import { RoutePath } from '@/shared/config'
 import { TextFieldForm } from '@/shared/hocs/formHocs'
 import useStyles from './styles'
 import Box from '@mui/material/Box'
-
-interface Topic {
-  id: number
-  title: string
-  description: string
-}
-
-const array: Topic[] = [
-  //Временная заглушка
-  {
-    id: 1,
-    title: 'Форум о здоровье',
-    description: 'Обсуждаем все что касается здоровья игроков',
-  },
-  {
-    id: 2,
-    title: 'Форум о мотоциклах',
-    description: 'Мотоциклы и все такое',
-  },
-  {
-    id: 3,
-    title: 'Форум о программировании',
-    description: 'Обсуждаем айтишные мемы',
-  },
-]
+import { IForumForm } from '@/pages/Forum/ui/Forum/types'
+import { useAppSelector } from '@/app/hooks/redux'
+import { getForumList } from '@/entities/forum/model/selectors'
 
 const Forum: React.FC = () => {
   const styles = useStyles()
 
   const [isModalOpen, setIsModalOpen] = React.useState<boolean>(false)
 
-  const handleAddForum = (values: any) => {
-    console.log('Submitted values:', values)
+  const forumList = useAppSelector(getForumList)
+
+  const handleAddForum = (values: IForumForm) => {
+    setIsModalOpen(!isModalOpen)
+  }
+
+  const handleCloseModal = () => {
     setIsModalOpen(!isModalOpen)
   }
 
   return (
     <Box sx={styles.root}>
       <Grid container alignItems={'center'} justifyContent={'space-between'}>
-        <Typography variant="h4">Forum topics list</Typography>
+        <Typography variant="h4">Forum</Typography>
         <Button
           variant="contained"
           color="primary"
           sx={styles.button}
-          onClick={handleAddForum}>
+          onClick={handleCloseModal}>
           Create forum
         </Button>
       </Grid>
 
       <List component={Grid} container>
-        {array.map(topic => (
+        {forumList?.map(item => (
           <ListItem
-            key={topic.id}
+            key={item.id}
             button
             component={Link}
-            to={`${RoutePath.forum_messages}/${topic.id}`}>
-            <ListItemText primary={topic.title} secondary={topic.description} />
+            to={`${RoutePath.forum}/${item.id}`}>
+            <ListItemText primary={item.title} secondary={item.description} />
           </ListItem>
         ))}
       </List>
-      <Dialog open={isModalOpen} onClose={handleAddForum}>
+      <Dialog open={isModalOpen} onClose={handleCloseModal}>
         <Form
           onSubmit={handleAddForum}
           render={({ handleSubmit }) => (
@@ -84,6 +67,7 @@ const Forum: React.FC = () => {
               <DialogContent>
                 <Field
                   component={TextFieldForm}
+                  size={'small'}
                   autoFocus
                   margin="dense"
                   label="Forum Name"
@@ -96,12 +80,15 @@ const Forum: React.FC = () => {
                   label="Forum description"
                   name="description"
                   fullWidth
+                  multiline
+                  maxRows={5}
+                  minRows={3}
                 />
               </DialogContent>
               <DialogActions>
-                <Button onClick={() => setIsModalOpen(false)}>Отмена</Button>
+                <Button onClick={handleCloseModal}>Cancel</Button>
                 <Button type="submit" variant="contained" color="primary">
-                  Добавить
+                  Add
                 </Button>
               </DialogActions>
             </form>

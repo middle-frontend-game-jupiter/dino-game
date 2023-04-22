@@ -1,6 +1,7 @@
 import { configureStore, ConfigureStoreOptions } from '@reduxjs/toolkit'
 import { authModel } from '@/entities/auth'
 import { leaderboardModel } from '@/entities/leaderboard'
+import { forumModel } from '@/entities/forum'
 import { appModel } from '@/entities/app'
 import { api } from '@/services/api'
 
@@ -13,6 +14,7 @@ export const createStore = (
       app: appModel.reducer,
       auth: authModel.reducer,
       leaderboard: leaderboardModel.reducer,
+      forum: forumModel.reducer,
     },
     middleware: getDefaultMiddleware =>
       getDefaultMiddleware().concat(api.middleware),

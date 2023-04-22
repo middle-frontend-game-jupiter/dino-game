@@ -9,7 +9,7 @@ const initialState: AppSlice = {
   theme: MODE.DARK,
 }
 
-export const appSlice = createSlice({
+const appSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
