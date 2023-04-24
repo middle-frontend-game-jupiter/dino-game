@@ -26,12 +26,16 @@ const Forum: React.FC = () => {
 
   const forumList = useAppSelector(getForumList)
 
-  const handleAddForum = (values: IForumForm) => {
-    setIsModalOpen(!isModalOpen)
+  const onSubmit = (values: IForumForm) => {
+    setIsModalOpen(false)
   }
 
   const handleCloseModal = () => {
-    setIsModalOpen(!isModalOpen)
+    setIsModalOpen(false)
+  }
+
+  const handleOpenModal = () => {
+    setIsModalOpen(true)
   }
 
   return (
@@ -42,7 +46,7 @@ const Forum: React.FC = () => {
           variant="contained"
           color="primary"
           sx={styles.button}
-          onClick={handleCloseModal}>
+          onClick={handleOpenModal}>
           Create forum
         </Button>
       </Grid>
@@ -60,7 +64,7 @@ const Forum: React.FC = () => {
       </List>
       <Dialog open={isModalOpen} onClose={handleCloseModal}>
         <Form
-          onSubmit={handleAddForum}
+          onSubmit={onSubmit}
           render={({ handleSubmit }) => (
             <form onSubmit={handleSubmit}>
               <DialogTitle>Add new forum</DialogTitle>
