@@ -12,7 +12,7 @@ import { ForumMessages } from '@/pages/ForumMessages/ui/ForumMessages'
 import { LeaderboardPage } from '@/pages/Leaderboard'
 import { LeaderboardGuard } from '@/entities/leaderboard/ui'
 import Landing from '@/pages/Landing/ui/Landing'
-import { ForumPage } from '@/pages/Forum'
+import { ForumPage, Topic } from '@/pages/Forum'
 
 export const routeConfig: Record<APP_ROUTES, RouteProps> = {
   [APP_ROUTES.MAIN]: {
@@ -55,6 +55,12 @@ export const routeConfig: Record<APP_ROUTES, RouteProps> = {
       </AuthGuard>
     ),
   },
+
+  [`${APP_ROUTES.FORUM}/:id`]: {
+    path: `${RoutePath.forum}/:id`,
+    element: <Topic />,
+  },
+
   [APP_ROUTES.FORUM_MESSAGES]: {
     path: RoutePath.forum_messages,
     element: (
