@@ -1,17 +1,24 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './app/App'
-import { store } from '@/app/providers/store/config/store'
-import { Provider } from 'react-redux'
-import { BrowserRouter } from 'react-router-dom'
+import { createStore } from '@/app/providers/store/config/store'
 import { ErrorBoundary } from '@/app/providers/errorBoundary'
+import { Router } from './app/hocs/AppRouter'
+import { AppStore } from './app/hocs/AppStore'
 
-ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
+const root = document.getElementById('root') as HTMLElement;
+
+const store = createStore()
+
+ReactDOM.hydrateRoot(
+  root,
   <ErrorBoundary>
-    <Provider store={store}>
-      <BrowserRouter>
+    <AppStore store={store}>
+      <Router>
         <App />
-      </BrowserRouter>
-    </Provider>
+      </Router>
+    </AppStore>
   </ErrorBoundary>
-)
+);
+
+

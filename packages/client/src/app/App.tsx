@@ -14,10 +14,13 @@ import { getTheme } from '@/entities/app/model/selectors'
 
 const App = () => {
   const theme = useAppSelector(getTheme)
+
+  console.log(theme)
+
   return (
     <ThemeProvider theme={theme === MODE.LIGHT ? themeLight : themeDark}>
-      <GlobalStyles styles={{}} />
-      <CssBaseline />
+      {/* <GlobalStyles styles={{}} /> */}
+      {/* <CssBaseline /> */}
       <Box minHeight="100vh">
         <Header />
         <Box display={'flex'} height={`calc(100vh - ${SIZE.HEADER_HEIGHT}px)`}>

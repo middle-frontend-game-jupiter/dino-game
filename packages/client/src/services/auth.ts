@@ -7,7 +7,9 @@ import {
 } from '@/shared/types/User'
 import { api } from './api'
 
-export const REDIRECT_URI = `${window.location.origin}/`
+const isServer = typeof window === 'undefined';
+
+export const REDIRECT_URI = `${isServer ? '' : window.location.origin}/`
 
 export const authApi = api
   .enhanceEndpoints({ addTagTypes: ['authApi'] })
