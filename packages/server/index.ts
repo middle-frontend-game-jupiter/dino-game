@@ -21,13 +21,17 @@ app.use(express.json());
 
 const port = Number(process.env.SERVER_PORT) || 3001;
 
+const { POSTGRES_USER, POSTGRES_PASSWORD, POSTGRES_DB, POSTGRES_PORT, POSTGRES_HOST, POSTGRES_TYPE } =
+  process.env
+
+// @ts-ignore
 createConnection({
-  type: 'postgres',
-  host: 'localhost',
-  port: 5432,
-  username: 'postgres',
-  password: 'POSTGRES_PASSWORD',
-  database: 'forum_db',
+  type: POSTGRES_TYPE,
+  host: POSTGRES_HOST,
+  port: POSTGRES_PORT,
+  username: POSTGRES_USER,
+  password: POSTGRES_PASSWORD,
+  database: POSTGRES_DB,
   entities: [Topic, Message],
   synchronize: true,
 }).then(() => {

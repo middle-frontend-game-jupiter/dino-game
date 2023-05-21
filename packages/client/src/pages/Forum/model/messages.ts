@@ -1,6 +1,7 @@
 import { createGate } from 'effector-react'
 import { createEffect, createEvent, createStore, forward, sample } from 'effector'
 import axios from 'axios'
+import { BASE_API_URL } from '@/services/api'
 
 
 //gate страницы сообщений
@@ -11,7 +12,7 @@ export const onCreateMessage = createEvent<string>("Создание форум�
 
 export const fxGetMessagesByForum = createEffect(async (forumId) => {
   try {
-    const response = await axios.get(`http://localhost:3001/topics/${forumId}/messages`); // Замените '/topics/:id/messages' на ваш эндпоинт для получения сообщений по конкретному форуму
+    const response = await axios.get(`${BASE_API_URL}/topics/${forumId}/messages`); // Замените '/topics/:id/messages' на ваш эндпоинт для получения сообщений по конкретному форуму
     return response.data; // Возвращаем полученные данные, если необходимо
   } catch (error) {
     console.error('Ошибка при получении сообщений по форуму:', error);
@@ -21,7 +22,7 @@ export const fxGetMessagesByForum = createEffect(async (forumId) => {
 
 export const fxNewMessage = createEffect(async ({forumId, user, message }) => {
   try {
-    const response = await axios.post(`http://localhost:3001/topics/${forumId}/messages`, {user, message});
+    const response = await axios.post(`${BASE_API_URL}/topics/${forumId}/messages`, {user, message});
     return response.data; // Возвращаем полученные данные, если необходимо
   } catch (error) {
     console.error('Ошибка при получении сообщений по форуму:', error);
