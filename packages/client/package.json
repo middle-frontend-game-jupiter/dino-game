@@ -9,8 +9,7 @@
     "lint": "eslint .",
     "format": "prettier --write .",
     "lint-staged": "lint-staged",
-    "test": "jest ./",
-    "prepare": "husky install"
+    "test": "jest ./"
   },
   "dependencies": {
     "@emotion/react": "11.10.6",
