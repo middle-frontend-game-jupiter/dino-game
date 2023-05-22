@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { useAppSelector } from '@/app/hooks/redux'
 import { getSelectedForum } from '@/entities/forum/model/selectors'
@@ -15,45 +15,28 @@ import DialogActions from '@mui/material/DialogActions'
 import List from '@mui/material/List'
 import ListItemText from '@mui/material/ListItemText'
 import Divider from '@mui/material/Divider'
-
-const commentList = [
-  {
-    id: 1,
-    user: 'Nik',
-    comment: 'Обсуждаем все что касается здоровья игроков',
-  },
-  {
-    id: 2,
-    user: 'Pik',
-    comment: 'Мотоциклы и все такое',
-  },
-  {
-    id: 3,
-    user: 'Dik',
-    comment: 'Обсуждаем айтишные мемы',
-  },
-  {
-    id: 4,
-    user: 'Kik',
-    comment: 'Обсуждаем айтишные мемы',
-  },
-]
+import { useGate, useStore } from 'effector-react'
+import { $forumMessages, ForumMessagesGate, onCreateMessage } from '@/pages/Forum/model'
+import { authModel } from '@/entities/auth'
 
 const Topic: React.FC = () => {
-  const styles = useStyles()
+  const user = useAppSelector(authModel.selectors.getUserSelector)
 
-  const { id } = useParams()
-
-  if (!id) {
-    return null
-  }
-
-  const forum = useAppSelector(state =>
-    getSelectedForum(state, { forumId: Number(id) })
+  const fullName = useMemo(
+    () => (user ? user.displayName : ''),
+    [user]
   )
+  const { id = null } = useParams()
+  const styles = useStyles()
+  useGate(ForumMessagesGate, id)
+  const forumMessages = useStore($forumMessages)
 
   const onSubmit = (values: any) => {
-    console.log(values)
+    onCreateMessage({
+      forumId: id,
+      message: values.comment,
+      user: fullName
+    })
   }
 
   return (
@@ -65,19 +48,16 @@ const Topic: React.FC = () => {
         to={RoutePath.forum}>
         Back
       </Button>
-      <Paper sx={styles.paper}>
-        <Typography variant={'h4'}>{forum?.title}</Typography>
-        <Typography marginTop={1}>{forum?.description}</Typography>
-      </Paper>
 
       <Paper sx={styles.paper}>
         <List>
-          {commentList.map(comment => (
-            <React.Fragment key={comment.id}>
+          {forumMessages.length < 1 && "Сообщений нет"}
+          {forumMessages?.map(message => (
+            <React.Fragment key={message.id}>
               <ListItem alignItems="flex-start">
                 <ListItemText
-                  primary={comment.user}
-                  secondary={<React.Fragment>{comment.comment}</React.Fragment>}
+                  primary={message.user}
+                  secondary={<React.Fragment>{message.message}</React.Fragment>}
                 />
               </ListItem>
               <Divider component="li" />

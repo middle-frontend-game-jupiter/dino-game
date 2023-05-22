@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { useGate, useStore } from 'effector-react'
 import Typography from '@mui/material/Typography'
 import List from '@mui/material/List'
 import ListItem from '@mui/material/ListItem'
@@ -16,17 +17,19 @@ import { TextFieldForm } from '@/shared/hocs/formHocs'
 import useStyles from './styles'
 import Box from '@mui/material/Box'
 import { IForumForm } from '@/pages/Forum/ui/Forum/types'
-import { useAppSelector } from '@/app/hooks/redux'
-import { getForumList } from '@/entities/forum/model/selectors'
+import { ForumGate, $forumTopics, onDeleteForum, onCreateForum } from '@/pages/Forum/model'
 
 const Forum: React.FC = () => {
   const styles = useStyles()
 
+  useGate(ForumGate)
+
+  const forumTopics = useStore($forumTopics)
+
   const [isModalOpen, setIsModalOpen] = React.useState<boolean>(false)
 
-  const forumList = useAppSelector(getForumList)
-
   const onSubmit = (values: IForumForm) => {
+    onCreateForum(values)
     setIsModalOpen(false)
   }
 
@@ -52,13 +55,17 @@ const Forum: React.FC = () => {
       </Grid>
 
       <List component={Grid} container>
-        {forumList?.map(item => (
-          <ListItem
-            key={item.id}
-            button
-            component={Link}
-            to={`${RoutePath.forum}/${item.id}`}>
-            <ListItemText primary={item.title} secondary={item.description} />
+        {!forumTopics.length && <div>Форум пуст. Создайте форум с помощью кнопки CREATE FORUM</div>}
+        {forumTopics?.map(item => (
+          <ListItem>
+            <ListItem
+              key={item.id}
+              button
+              component={Link}
+              to={`${RoutePath.forum}/${item.id}`}>
+              <ListItemText primary={item.title} secondary={item.subtitle} />
+            </ListItem>
+            <button onClick={() => onDeleteForum(item.id)}>Удалить</button>
           </ListItem>
         ))}
       </List>
@@ -82,7 +89,7 @@ const Forum: React.FC = () => {
                   component={TextFieldForm}
                   margin="dense"
                   label="Forum description"
-                  name="description"
+                  name="subtitle"
                   fullWidth
                   multiline
                   maxRows={5}
